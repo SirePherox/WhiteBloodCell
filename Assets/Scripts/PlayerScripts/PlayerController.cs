@@ -1,21 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private Transform bulletSpawnPos;
+    [SerializeField] private Transform spawnItemsParent; //SpawnManager object
+
     [Header("Attack Vars")]
     [SerializeField] private float killAttackAmount = 5.0f;
+    private float killAttackBulletFireRate = 2.0f;
+    private float nextFireTime = 0.0f;
+    [Serializable]
+    public enum AttackMechanism
+    {
+        KillAttack,
+        Engulf,
+        Weaken,
+        CallImmune
+    }
+
+    public AttackMechanism currentAttackMechanism = AttackMechanism.KillAttack;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        SpawnKillAttackBulletsContinously();
+    }
+
+    private void SpawnKillAttackBulletsContinously()
+    {
+        if (Time.time > nextFireTime)
+        {
+            SpawnKillAttackBullets();
+            nextFireTime = Time.time + 1f / killAttackBulletFireRate; // Update next fire time based on fire rate
+        }
+    }
+
+    private void SpawnKillAttackBullets()
+    {
+            BulletController newBullet = SpawnManager.Instance.GetKillAttackBullet();
+            newBullet.transform.position = bulletSpawnPos.position;
+            newBullet.transform.parent = spawnItemsParent;
     }
 
     #region - Attack Mechanisms-

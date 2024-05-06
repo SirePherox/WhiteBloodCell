@@ -43,7 +43,6 @@ public class PlayerMovementController : MonoBehaviour
     private void MovePlayerHorizontal()
     {
         float horAxis = Input.GetAxis("Horizontal");
-        Debug.Log("HorAxis: " + horAxis);
         Vector3 moveDir = new Vector3(-(horAxis * horMoveSpeed), 0f, 0f);
         charCont.Move(moveDir * Time.deltaTime);
     }
