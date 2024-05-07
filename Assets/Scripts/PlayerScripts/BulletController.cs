@@ -24,14 +24,26 @@ public class BulletController : MonoBehaviour
         transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.transform.GetComponent<BaseEnemyController>() != null)
+        if(other.GetComponent<BaseThreatController>() != null)
         {
             //if bullet touches an enemy
             //deal damage
-            BaseEnemyController enemy = collision.transform.GetComponent<BaseEnemyController>();
+            BaseThreatController enemy = other.transform.GetComponent<BaseThreatController>();
             Debug.Log("Threat type: " + enemy.threatType);
+            //return to pool based on threat type
+            switch (enemy.threatType)
+            {
+                case ThreatType.Bacteria:
+                    SpawnManager.Instance.ReturnBacteriaToPool(enemy.GetComponent<Bacteria>());
+                    break;
+                default:
+                    Debug.LogWarning("COULDN'T HANDLE THE THREAT TYPE, OBJECT WASNT RETURNED TO POOL");
+                    break;
+            }
+           
             //shoow vfx
 
             Debug.Log("Bullet hit enemy here");

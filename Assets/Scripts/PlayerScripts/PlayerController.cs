@@ -54,12 +54,12 @@ public class PlayerController : MonoBehaviour
 
     #region - Attack Mechanisms-
 
-    private void KillAttack(BaseEnemyController enemy)
+    private void KillAttack(BaseThreatController enemy)
     {
         //normal kill attack
         enemy.TakeDamage(PlayerAttackTypes.KILL_ATTACK, killAttackAmount);
     }
-    private void EngulfAttack(BaseEnemyController enemy)
+    private void EngulfAttack(BaseThreatController enemy)
     {
         //specify types it can only engulf
         if(enemy.threatType != ThreatType.Bacteria || enemy.threatType != ThreatType.Virus)
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void WeakenAttack(BaseEnemyController enemy)
+    private void WeakenAttack(BaseThreatController enemy)
     {
         //specify types it can only weaken
         if (enemy.threatType != ThreatType.Bacteria || enemy.threatType != ThreatType.Virus)
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
         //call for help from immune system
     }
 
-    private void DevelopAntiBodies(BaseEnemyController enemy)
+    private void DevelopAntiBodies(BaseThreatController enemy)
     {
         //develop antibodies for recurring threats
     }

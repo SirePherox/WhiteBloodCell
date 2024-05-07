@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class BoundaryManager : MonoBehaviour
 {
-    [Header("Script References")]
-    [SerializeField] private SpawnManager spawnManager;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -21,15 +18,16 @@ public class BoundaryManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform.GetComponent<BaseEnemyController>() != null)
+        if(other.transform.GetComponent<BaseThreatController>() != null)
         {
             Debug.Log("Enemy");
-          //return enemy to pool
+            //return enemy to pool
+            SpawnManager.Instance.ReturnBacteriaToPool(other.transform.GetComponent<Bacteria>());
         }
         else if (other.transform.GetComponent<BulletController>() != null)
         {
             //collider is a bullet
-            spawnManager.ReturnKillAttackBulletToPool(other.transform.GetComponent<BulletController>());
+            SpawnManager.Instance.ReturnKillAttackBulletToPool(other.transform.GetComponent<BulletController>());
         }
 
     }

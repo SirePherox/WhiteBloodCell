@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bacteria : BaseEnemyController
+public class Bacteria : BaseThreatController
 {
     [Header("Variables")]
     [SerializeField] private float moveSpeed = 5.0f;

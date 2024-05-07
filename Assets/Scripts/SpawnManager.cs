@@ -26,6 +26,16 @@ public class SpawnManager : MonoBehaviour
         
     }
 
+    public Bacteria GetBacteria()
+    {
+        return objectPool.bacteriaEnemyPool.Get();
+    }
+
+    public void ReturnBacteriaToPool(Bacteria threat)
+    {
+        objectPool.bacteriaEnemyPool.Release(threat);
+    }
+
     public BulletController GetKillAttackBullet()
     {
         return objectPool.killAttackBulletPool.Get();

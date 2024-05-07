@@ -8,10 +8,20 @@ public class ObjectPooler : MonoBehaviour
 {
     [Header("Pool Refereebces")]
     [SerializeField] private BulletController killAttackBulletsPrefab;
+    [SerializeField] private Bacteria bacteriaPrefab;
+
+    [Space]
     [Header("Pool Variables")]
     [SerializeField] private int defaultBulletPoolSize;
     [SerializeField] private int maxAttackBulletPoolSize;
     public ObjectPool<BulletController> killAttackBulletPool;
+
+    [Space]
+    [Header("Enemy Variables")]
+    [SerializeField] private int defaultThreatPoolSize;
+    [SerializeField] private int maxThreatPoolSize;
+    public ObjectPool<Bacteria> bacteriaEnemyPool;
+
     private bool collectionCheck = true;
     // Start is called before the first frame update
     void Start()
@@ -19,6 +29,10 @@ public class ObjectPooler : MonoBehaviour
         killAttackBulletPool = new ObjectPool<BulletController>(CreateKillAttackBullet, GetKillAttackBullet,
                                                             ReturnKillAttackBulletToPool, DestroyKillAttackBullet, collectionCheck,
                                                             defaultBulletPoolSize, maxAttackBulletPoolSize);
+
+        bacteriaEnemyPool = new ObjectPool<Bacteria>(CreateBacteria, GetThreatFromPool,
+                                                    ReturnThreatToPool, DestroyThreat, collectionCheck,
+                                                       defaultThreatPoolSize, maxThreatPoolSize);
     }
 
     // Update is called once per frame
@@ -27,7 +41,33 @@ public class ObjectPooler : MonoBehaviour
         
     }
 
-    private  BulletController CreateKillAttackBullet()
+    #region -Enemy Pool-
+    private Bacteria CreateBacteria()
+    {
+        Bacteria newBact = Instantiate(bacteriaPrefab);
+        return newBact;
+    }
+
+    private void GetThreatFromPool(BaseThreatController threat)
+    {
+        threat.gameObject.SetActive(true);
+        //ENEMY CAN MUTATE HERE
+    }
+
+    private void ReturnThreatToPool(BaseThreatController threat)
+    {
+        threat.gameObject.SetActive(false);
+        //ENEMY CAN MUTATE HERE
+    }
+
+    private void DestroyThreat(BaseThreatController threat)
+    {
+        Destroy(threat);
+    }
+    #endregion
+
+    #region -Bullet Pool-
+    private BulletController CreateKillAttackBullet()
     {
         BulletController newBullet = Instantiate(killAttackBulletsPrefab);
         return newBullet;
@@ -47,4 +87,5 @@ public class ObjectPooler : MonoBehaviour
     {
         Destroy(bullet);
     }
+    #endregion
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [RequireComponent(typeof(EnemyHealthController))]
-public class BaseEnemyController : MonoBehaviour
+public class BaseThreatController : MonoBehaviour
 {
     public ThreatType threatType = ThreatType.Radical;
     public EnemyHealthController healthController;
