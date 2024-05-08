@@ -168,11 +168,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   killAttackBulletsPrefab: {fileID: 1528494797137092561, guid: 4cc9e6a8fc1664244a3f66076a6f9347,
     type: 3}
-  bacteriaPrefab: {fileID: 0}
+  bacteriaPrefab: {fileID: 7643253998679924192, guid: ff44a922779b447c2bde5b6d2a4a8fd1,
+    type: 3}
   defaultBulletPoolSize: 15
   maxAttackBulletPoolSize: 40
-  defaultThreatPoolSize: 0
-  maxThreatPoolSize: 0
+  defaultThreatPoolSize: 10
+  maxThreatPoolSize: 40
 --- !u!4 &13482914
 Transform:
   m_ObjectHideFlags: 0
@@ -682,6 +683,7 @@ GameObject:
   - component: {fileID: 874808366}
   - component: {fileID: 874808365}
   - component: {fileID: 874808364}
+  - component: {fileID: 874808368}
   m_Layer: 0
   m_Name: Boundary_bottom
   m_TagString: Untagged
@@ -787,6 +789,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 874808362}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &874808368
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874808362}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &906038566
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +829,7 @@ GameObject:
   - component: {fileID: 906038568}
   - component: {fileID: 906038573}
   - component: {fileID: 906038572}
+  - component: {fileID: 906038574}
   - component: {fileID: 906038567}
   - component: {fileID: 906038571}
   m_Layer: 0
@@ -824,7 +854,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -952,7 +982,20 @@ MonoBehaviour:
   bulletSpawnPos: {fileID: 718845526}
   spawnItemsParent: {fileID: 13482914}
   killAttackAmount: 5
-  currentAttackMechanism: 0
+  currentAttackMechanism: 1
+--- !u!114 &906038574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906038566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98124bca64f641e08ae8b800ba71a3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPlayerHealth: 0
 --- !u!1 &926926959
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,6 +1009,7 @@ GameObject:
   - component: {fileID: 926926963}
   - component: {fileID: 926926962}
   - component: {fileID: 926926961}
+  - component: {fileID: 926926965}
   m_Layer: 0
   m_Name: Boundary_top
   m_TagString: Untagged
@@ -1071,6 +1115,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926926959}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &926926965
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926926959}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1318373436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1245,10 +1316,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7643253998679924192, guid: ff44a922779b447c2bde5b6d2a4a8fd1,
+        type: 3}
+      propertyPath: bacteriaDefaultHealth
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8117361533036249424, guid: ff44a922779b447c2bde5b6d2a4a8fd1,
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8117361533036249424, guid: ff44a922779b447c2bde5b6d2a4a8fd1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

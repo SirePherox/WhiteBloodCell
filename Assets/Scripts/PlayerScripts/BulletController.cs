@@ -6,7 +6,7 @@ public class BulletController : MonoBehaviour
 {
     [Header("Variables")]
     [SerializeField] private float moveSpeed;
-
+    [SerializeField] private float damagePower = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,15 +29,12 @@ public class BulletController : MonoBehaviour
     {
         if(other.GetComponent<BaseThreatController>() != null)
         {
-            //if bullet touches an enemy
-            //deal damage
-            BaseThreatController enemy = other.transform.GetComponent<BaseThreatController>();
-            Debug.Log("Threat type: " + enemy.threatType);
-            //return to pool based on threat type
-            switch (enemy.threatType)
+            //if bullet touches an enemy   //deal damage to health
+            BaseThreatController threat = other.transform.GetComponent<BaseThreatController>();
+            switch (threat.threatType)
             {
                 case ThreatType.Bacteria:
-                    SpawnManager.Instance.ReturnBacteriaToPool(enemy.GetComponent<Bacteria>());
+                    threat.GetComponent<Bacteria>().TakeDamage(PlayerAttackTypes.KILL_ATTACK, damagePower);
                     break;
                 default:
                     Debug.LogWarning("COULDN'T HANDLE THE THREAT TYPE, OBJECT WASNT RETURNED TO POOL");
@@ -45,8 +42,6 @@ public class BulletController : MonoBehaviour
             }
            
             //shoow vfx
-
-            Debug.Log("Bullet hit enemy here");
             SpawnManager.Instance.ReturnKillAttackBulletToPool(this);
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[RequireComponent(typeof(PlayerHealthManager))]
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
@@ -23,7 +24,12 @@ public class PlayerController : MonoBehaviour
     }
 
     public AttackMechanism currentAttackMechanism = AttackMechanism.KillAttack;
+    private PlayerHealthManager healthManager;
 
+    private void Awake()
+    {
+        healthManager = GetComponent<PlayerHealthManager>();
+    }
     // Start is called before the first frame update
     private void Start()
     {
@@ -33,11 +39,39 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        
         SpawnKillAttackBulletsContinously();
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        BaseThreatController threat;
+        if(other.TryGetComponent<BaseThreatController>(out threat))
+        {
+            switch (threat.threatType)
+            {
+                case ThreatType.Bacteria:
+                    //deal bacteria related damages
+                    healthManager.TakeDamage(ThreatTypes.BACTERIA, threat.GetComponent<Bacteria>().damagePower);
+                    break;
+                default:
+                    Debug.LogWarning("COULDN'T HANDLE THIS THREAT TYPE, CANT DEAL DAMAGE TO PLAYER");
+                    break;
+
+              
+            }
+
+
+        }
+    }
+
+    #region -Kill Attack Bullets
     private void SpawnKillAttackBulletsContinously()
     {
+        if (currentAttackMechanism != AttackMechanism.KillAttack)
+            return;
+
         if (Time.time > nextFireTime)
         {
             SpawnKillAttackBullets();
@@ -51,6 +85,7 @@ public class PlayerController : MonoBehaviour
             newBullet.transform.position = bulletSpawnPos.position;
             newBullet.transform.parent = spawnItemsParent;
     }
+    #endregion
 
     #region - Attack Mechanisms-
 

@@ -6,12 +6,14 @@ public class Bacteria : BaseThreatController
 {
     [Header("Variables")]
     [SerializeField] private float moveSpeed = 5.0f;
-    [SerializeField] private 
+    [SerializeField] private float bacteriaDefaultHealth;
+     public float damagePower = 3.0f;
   
     // Start is called before the first frame update
     void Start()
     {
         threatType = ThreatType.Bacteria;
+        healthController.current_Health = bacteriaDefaultHealth;
     }
 
     // Update is called once per frame
@@ -26,7 +28,7 @@ public class Bacteria : BaseThreatController
         switch (playerAttackType)
         {
             case PlayerAttackTypes.KILL_ATTACK:
-                healthController.ReduceHealth(damageAmount);
+                healthController.TakeDamage(damageAmount);
                 Debug.Log("A kill attack happened: " + damageAmount);
                 break;
             case PlayerAttackTypes.ENGULF_ATTACK:

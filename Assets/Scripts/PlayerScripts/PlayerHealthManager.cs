@@ -5,19 +5,13 @@ using UnityEngine;
 public class PlayerHealthManager : MonoBehaviour
 {
     [Header("Variables")]
-    public float playerHealth;
+    [SerializeField] private float currentPlayerHealth;
     private float defaultPlayerHealth = 100.0f;
 
-    public PlayerHealthManager Instance;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentPlayerHealth = defaultPlayerHealth;
     }
 
     // Update is called once per frame
@@ -26,13 +20,36 @@ public class PlayerHealthManager : MonoBehaviour
         
     }
 
-    public void TakeDamage(float damageAmount)
+    public void TakeDamage(string threatType, float damageAmount)
     {
+        switch (threatType)
+        {
+            case ThreatTypes.BACTERIA:
+                currentPlayerHealth -= damageAmount;
+                break;
+            default:
+                Debug.LogWarning("COULDNT HANDLE THE THREATTYPE, CANT DEAL DAMAGE TO PLAYER HEALTH");
+                break;
+        }
 
+        CheckIsPlayerDeadGameOver();
     }
 
     public void Heal(float healAmount)
     {
 
+    }
+
+    public void CheckIsPlayerDeadGameOver()
+    {
+        if (IsPlayerDead())
+        {
+            //game over
+            Debug.Log("Game over with player death");
+        }
+    }
+    private bool IsPlayerDead()
+    {
+        return currentPlayerHealth <= 0.0f;
     }
 }
