@@ -22,9 +22,13 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void TakeDamage(string threatType, float damageAmount)
     {
+        //TODO Deal specific damage based on threat types
         switch (threatType)
         {
             case ThreatTypes.BACTERIA:
+                currentPlayerHealth -= damageAmount;
+                break;
+            case ThreatTypes.VIRUS:
                 currentPlayerHealth -= damageAmount;
                 break;
             default:

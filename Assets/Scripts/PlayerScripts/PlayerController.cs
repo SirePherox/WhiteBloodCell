@@ -55,6 +55,9 @@ public class PlayerController : MonoBehaviour
                     //deal bacteria related damages
                     healthManager.TakeDamage(ThreatTypes.BACTERIA, threat.GetComponent<Bacteria>().damagePower);
                     break;
+                case ThreatType.Virus:
+                    healthManager.TakeDamage(ThreatTypes.VIRUS, threat.GetComponent<Virus>().damagePower);
+                    break;
                 default:
                     Debug.LogWarning("COULDN'T HANDLE THIS THREAT TYPE, CANT DEAL DAMAGE TO PLAYER");
                     break;

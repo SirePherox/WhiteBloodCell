@@ -8,17 +8,12 @@ public class BaseThreatController : MonoBehaviour
 {
     public ThreatType threatType = ThreatType.Radical;
     public ThreatHealthController healthController;
-    public ThreatHealthPoint threatHealthPoint;
-
+   // public ThreatHealthPoint threatHealthPoint;
     
     // Start is called before the first frame update
     void Start()
     {
         healthController = GetComponent<ThreatHealthController>();
-        if(threatHealthPoint == null)
-        {
-            Debug.LogWarning("Couldn't GET THE HIT POINT CHILD, TRY REFERENCING IN THE EDITOR");
-        }
     }
 
     // Update is called once per frame
@@ -47,9 +42,6 @@ public class BaseThreatController : MonoBehaviour
     {
         //take damage based on type
 
-        //show visual for taking damage
-        UpdateThreatHealthPoint();
-
         //check health after taking damage
         CheckToReturnThreatToPool();
     }
@@ -73,6 +65,10 @@ public class BaseThreatController : MonoBehaviour
             {
                 case ThreatType.Bacteria:
                     SpawnManager.Instance.ReturnBacteriaToPool(this.GetComponent<Bacteria>());
+                    Debug.Log("Should clean up here");
+                    break;
+                case ThreatType.Virus:
+                    SpawnManager.Instance.ReturnVirusToPool(this.GetComponent<Virus>());
                     break;
                 default:
                     Debug.LogWarning("COULDN'T HANDLE THE THREAT TYPE, OBJECT WASNT RETURNED TO POOL");
@@ -81,10 +77,11 @@ public class BaseThreatController : MonoBehaviour
         }
     }
 
-    private void UpdateThreatHealthPoint()
-    {
-        threatHealthPoint.UpdateHealth(healthController.current_Health);
-    }
+    //private void UpdateThreatHealthPoint()
+    //{
+    //    //threatHealthPoint.UpdateHealth(healthController.current_Health);
+    //    healthController.UpdateHealth();
+    //}
 }
 
 //[Serializable]

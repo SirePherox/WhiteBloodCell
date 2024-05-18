@@ -20,9 +20,20 @@ public class BoundaryManager : MonoBehaviour
     {
         if(other.transform.GetComponent<BaseThreatController>() != null)
         {
-            Debug.Log("Enemy");
-            //return enemy to pool
-            SpawnManager.Instance.ReturnBacteriaToPool(other.transform.GetComponent<Bacteria>());
+            //return threat to pool based on type
+            ThreatType threatType = other.transform.GetComponent<BaseThreatController>().threatType;
+            switch (threatType)
+            {
+                case ThreatType.Bacteria:
+                    SpawnManager.Instance.ReturnBacteriaToPool(other.transform.GetComponent<Bacteria>());
+                    break;
+                case ThreatType.Virus:
+                    SpawnManager.Instance.ReturnVirusToPool(other.transform.GetComponent<Virus>());
+                    break;
+                default:
+                    Debug.LogError("COULDN'T HANDLE THE THREAT, THREAT WASNT RETURNED TO POOL");
+                    break;
+            }
         }
         else if (other.transform.GetComponent<BulletController>() != null)
         {

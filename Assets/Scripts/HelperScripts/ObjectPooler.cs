@@ -9,6 +9,7 @@ public class ObjectPooler : MonoBehaviour
     [Header("Pool Refereebces")]
     [SerializeField] private BulletController killAttackBulletsPrefab;
     [SerializeField] private Bacteria bacteriaPrefab;
+    [SerializeField] private Virus virusPrefab;
 
     [Space]
     [Header("Pool Variables")]
@@ -20,7 +21,8 @@ public class ObjectPooler : MonoBehaviour
     [Header("Enemy Variables")]
     [SerializeField] private int defaultThreatPoolSize;
     [SerializeField] private int maxThreatPoolSize;
-    public ObjectPool<Bacteria> bacteriaEnemyPool;
+    public ObjectPool<Bacteria> bacteriaThreatPool;
+    public ObjectPool<Virus> virusThreatPool;
 
     private bool collectionCheck = true;
     // Start is called before the first frame update
@@ -30,7 +32,10 @@ public class ObjectPooler : MonoBehaviour
                                                             ReturnKillAttackBulletToPool, DestroyKillAttackBullet, collectionCheck,
                                                             defaultBulletPoolSize, maxAttackBulletPoolSize);
 
-        bacteriaEnemyPool = new ObjectPool<Bacteria>(CreateBacteria, GetThreatFromPool,
+        bacteriaThreatPool = new ObjectPool<Bacteria>(CreateBacteria, GetThreatFromPool,
+                                                    ReturnThreatToPool, DestroyThreat, collectionCheck,
+                                                       defaultThreatPoolSize, maxThreatPoolSize);
+        virusThreatPool = new ObjectPool<Virus>(CreateVirus, GetThreatFromPool,
                                                     ReturnThreatToPool, DestroyThreat, collectionCheck,
                                                        defaultThreatPoolSize, maxThreatPoolSize);
     }
@@ -46,6 +51,12 @@ public class ObjectPooler : MonoBehaviour
     {
         Bacteria newBact = Instantiate(bacteriaPrefab);
         return newBact;
+    }
+
+    private Virus CreateVirus()
+    {
+        Virus newVirus = Instantiate(virusPrefab);
+        return newVirus;
     }
 
     private void GetThreatFromPool(BaseThreatController threat)

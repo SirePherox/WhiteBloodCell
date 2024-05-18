@@ -11,8 +11,17 @@ public class ThreatsManager : MonoBehaviour
     private Transform threatParent;
 
 
-    private float nextSpawnTime = 0.0f;
-    private float spawnRate = 1.5f;
+   // [Header("Mutation Variables")]
+  
+
+    [Space]
+    [SerializeField]
+    private float bacteriaNextSpawnTime = 0.0f;
+    [SerializeField]
+    private float virusNextSpawnTime = 0.0f;
+
+    [SerializeField] private float bacteriaSpawnRate;
+    [SerializeField] private float virusSpawnRate;
 
     private void Awake()
     {
@@ -28,14 +37,21 @@ public class ThreatsManager : MonoBehaviour
     void Update()
     {
         SpawnThreats();
+       // SpawnVirusThreats();
     }
 
     private void SpawnThreats()
     {
-        if (Time.time > nextSpawnTime)
+        if (Time.time > bacteriaNextSpawnTime)
         {
             SpawnBacteriaThreat();
-            nextSpawnTime = Time.time + 1f / spawnRate; // Update next fire time based on fire rate
+            bacteriaNextSpawnTime = Time.time + 1f / bacteriaSpawnRate; // Update next spawn time based on spawn rate
+        }
+
+        if (Time.time > virusNextSpawnTime)
+        {
+            SpawnVirusThreat();
+            virusNextSpawnTime = Time.time + 1f / virusSpawnRate;
         }
     }
 
@@ -44,6 +60,23 @@ public class ThreatsManager : MonoBehaviour
         Bacteria newBact = SpawnManager.Instance.GetBacteria();
         newBact.transform.position = GetRandomTransform();
         newBact.transform.parent = threatParent;
+
+        //set or reset default values here 
+       // Debug.Log("Will attempt to set health: " + StandardThreatHealth.BACTERIA_HEALTH * PlayerPrefsManager.Instance.GetCurrentHealthMultiplier());
+        newBact.healthController.current_Health = StandardThreatHealth.BACTERIA_HEALTH * PlayerPrefsManager.Instance.GetCurrentHealthMultiplier();
+        newBact.healthController.default_Health = StandardThreatHealth.BACTERIA_HEALTH * PlayerPrefsManager.Instance.GetCurrentHealthMultiplier();
+
+    }
+
+    private void SpawnVirusThreat()
+    {
+        Virus newVirus = SpawnManager.Instance.GetVirus();
+        newVirus.transform.position = GetRandomTransform();
+        newVirus.transform.parent = threatParent;
+
+        //set or reset default values
+        newVirus.healthController.current_Health = StandardThreatHealth.VIRUS_HEALTH * PlayerPrefsManager.Instance.GetCurrentHealthMultiplier();
+        newVirus.healthController.default_Health = StandardThreatHealth.VIRUS_HEALTH * PlayerPrefsManager.Instance.GetCurrentHealthMultiplier();
     }
     public Vector3 GetRandomTransform()
     {
