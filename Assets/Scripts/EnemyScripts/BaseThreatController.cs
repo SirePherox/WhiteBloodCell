@@ -43,6 +43,7 @@ public class BaseThreatController : MonoBehaviour
         //take damage based on type
 
         //check health after taking damage
+        Debug.Log("Checking health");
         CheckToReturnThreatToPool();
     }
 
@@ -51,14 +52,10 @@ public class BaseThreatController : MonoBehaviour
         //mutate based on type
     }
 
-    public virtual bool IsThreatDead()
-    {
-        return healthController.current_Health <= 0.0f;
-    }
 
     private void CheckToReturnThreatToPool()
     {
-        if (IsThreatDead())
+        if (healthController.IsThreatDead())
         {
             //return to pool based on threat type
             switch (threatType)

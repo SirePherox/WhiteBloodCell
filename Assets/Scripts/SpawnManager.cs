@@ -7,6 +7,9 @@ public class SpawnManager : MonoBehaviour
     [Header("Scripts References")]
     [SerializeField] private ObjectPooler objectPool;
 
+    [Header("Prefabs")]
+    [SerializeField] private EngulferController engulfPrefabs;
+
     public static SpawnManager Instance;
 
     private void Awake()
@@ -24,6 +27,12 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public EngulferController GetEngulfer()
+    {
+        EngulferController newEngulf = Instantiate(engulfPrefabs);
+        return newEngulf;
     }
 
     public Bacteria GetBacteria()

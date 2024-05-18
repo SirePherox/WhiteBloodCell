@@ -11,6 +11,8 @@ public class PlayerAttackTypes
 {
     public const string KILL_ATTACK = "KillAttack";
     public const string ENGULF_ATTACK = "EngulfAttack";
+    public const string WEAKEN_ATTACK = "WeakenAttack";
+    public const string CALLIMMUNE_ATTACK = "CallImmuneAttack";
 }
 
 public class ThreatTypes

@@ -6,10 +6,15 @@ using System;
 [RequireComponent(typeof(PlayerHealthManager))]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Script References")]
+    [SerializeField] private UIManager uiManager;
+
+    [Space]
     [Header("References")]
     [SerializeField] private Transform bulletSpawnPos;
     [SerializeField] private Transform spawnItemsParent; //SpawnManager object
 
+    [Space]
     [Header("Attack Vars")]
     [SerializeField] private float killAttackAmount = 5.0f;
     private float killAttackBulletFireRate = 2.0f;
@@ -30,6 +35,16 @@ public class PlayerController : MonoBehaviour
     {
         healthManager = GetComponent<PlayerHealthManager>();
     }
+
+    private void OnEnable()
+    {
+        uiManager.OnChangeAttackMechanism += OnAttackMechanismChanged;
+    }
+
+    private void OnDisable()
+    {
+        uiManager.OnChangeAttackMechanism -= OnAttackMechanismChanged;
+    }
     // Start is called before the first frame update
     private void Start()
     {
@@ -43,7 +58,29 @@ public class PlayerController : MonoBehaviour
         SpawnKillAttackBulletsContinously();
     }
 
-
+    private void OnAttackMechanismChanged(string newMechanism)
+    {
+        switch (newMechanism)
+        {
+            case PlayerAttackTypes.KILL_ATTACK:
+                currentAttackMechanism = AttackMechanism.KillAttack;
+                break;
+            case PlayerAttackTypes.ENGULF_ATTACK:
+                currentAttackMechanism = AttackMechanism.Engulf;
+                UseEngulfAttack();
+                break;
+            case PlayerAttackTypes.WEAKEN_ATTACK:
+                currentAttackMechanism = AttackMechanism.Weaken;
+                break;
+            case PlayerAttackTypes.CALLIMMUNE_ATTACK:
+                currentAttackMechanism = AttackMechanism.CallImmune;
+                break;
+            default:
+                Debug.LogWarning("COULDNT HANDLE NEW MECHANISM, DEFAULTING TO KILL ATTACK");
+                currentAttackMechanism = AttackMechanism.KillAttack;
+                break;
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         BaseThreatController threat;
@@ -90,25 +127,13 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+    
     #region - Attack Mechanisms-
-
-    private void KillAttack(BaseThreatController enemy)
+    private void UseEngulfAttack()
     {
-        //normal kill attack
-        enemy.TakeDamage(PlayerAttackTypes.KILL_ATTACK, killAttackAmount);
-    }
-    private void EngulfAttack(BaseThreatController enemy)
-    {
-        //specify types it can only engulf
-        if(enemy.threatType != ThreatType.Bacteria || enemy.threatType != ThreatType.Virus)
-        {
-            //engulf mechanics , should also check if its weakened enough
-        }
-        else
-        {
-            Debug.Log("Cant engulf this type of enemy");
-            //show alert
-        }
+        EngulferController engulfer = SpawnManager.Instance.GetEngulfer();
+        engulfer.transform.position = bulletSpawnPos.position;
+        engulfer.transform.parent = spawnItemsParent;
     }
 
 

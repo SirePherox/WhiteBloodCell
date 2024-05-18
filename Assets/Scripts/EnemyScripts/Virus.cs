@@ -24,16 +24,18 @@ public class Virus : BaseThreatController
 
     public override void TakeDamage(string playerAttackType, float damageAmount)
     {
-        base.TakeDamage(playerAttackType, damageAmount);
         switch (playerAttackType)
         {
             case PlayerAttackTypes.KILL_ATTACK:
                 healthController.TakeDamage(damageAmount/damageAmountDivideOffset);
                 break;
             case PlayerAttackTypes.ENGULF_ATTACK:
+                healthController.DieInstantly();
                 break;
             default:
                 break;
         }
+        //the base script contains the IsDead() check, should be called after damage has been done
+        base.TakeDamage(playerAttackType, damageAmount);
     }
 }

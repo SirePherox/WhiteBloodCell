@@ -33,6 +33,11 @@ public class ThreatHealthController : MonoBehaviour
         UpdateHealth();
     }
 
+    public void DieInstantly()
+    {
+        current_Health = 0;
+        UpdateHealth();
+    }
     public void ReduceSpeed_XP(float amount)
     {
         current_moveSpeed_XP -= amount;
@@ -50,6 +55,11 @@ public class ThreatHealthController : MonoBehaviour
             //threatHealth_slider.value = amount / maxHealthAmount;
         }
 
+    }
+
+    public bool IsThreatDead()
+    {
+        return current_Health <= 0.0f;
     }
 
     public void ResetSliderValue()

@@ -11,7 +11,7 @@ public class SingletonCreator<T> : MonoBehaviour where T : Component
         {
             if (instance == null)
             {
-                instance = (T)FindObjectOfType(typeof(T));
+                instance = (T)FindFirstObjectByType(typeof(T));
                 if (instance == null)
                 {
                     SetupInstance();
@@ -28,7 +28,7 @@ public class SingletonCreator<T> : MonoBehaviour where T : Component
 
     private static void SetupInstance()
     {
-        instance = (T)FindObjectOfType(typeof(T));
+        instance = (T)FindFirstObjectByType(typeof(T));
         if (instance == null)
         {
             GameObject gameObj = new GameObject();
