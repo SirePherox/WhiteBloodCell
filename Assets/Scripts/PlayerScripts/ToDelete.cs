@@ -1,12 +1,7 @@
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class ToDelete : MonoBehaviour
 {
-    public UnityAction<string> OnChangeAttackMechanism;
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,7 +13,4 @@ public class UIManager : MonoBehaviour
     {
         
     }
-
-   
-
 }
