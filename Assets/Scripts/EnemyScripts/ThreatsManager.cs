@@ -5,14 +5,18 @@ using System;
 using Unity;
 public class ThreatsManager : MonoBehaviour
 {
+    [Header("Script References")]
+    private LevelStats levelStats;
+
     [Header("Threat Variables")]
     [SerializeField] private List<Transform> spawnPositions;
     private List<Transform> tempList; // Temporary list for random selection
     private Transform threatParent;
+    private bool canSpawnThreats = false;
 
-
-   // [Header("Mutation Variables")]
-  
+    [Header("Mutation Variables")]
+    private float minHealthMultiplier = 1.0f;
+    private float maxHealthMultiplier = 5.0f;
 
     [Space]
     [SerializeField]
@@ -26,18 +30,27 @@ public class ThreatsManager : MonoBehaviour
     private void Awake()
     {
         threatParent = GetComponent<Transform>();
+
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        MutateHealthMultiplier();
+
+        //cache scripts
+        levelStats = FindFirstObjectByType<LevelStats>();
+        //
+        WaveController.Instance.OnWaveStart.AddListener(OnNewWaveStarted);
+        WaveController.Instance.OnWaveEnd.AddListener(OnCurrentWaveEnded);
     }
 
     // Update is called once per frame
     void Update()
     {
-        SpawnThreats();
-       // SpawnVirusThreats();
+        if (canSpawnThreats)
+        {
+            SpawnThreats();
+        }
     }
 
     private void SpawnThreats()
@@ -92,4 +105,36 @@ public class ThreatsManager : MonoBehaviour
         
         return randomTransform.position;
     }
+
+    private void OnNewWaveStarted(int currentWaveNumb)
+    {
+        Debug.Log("Wave numb is : " + currentWaveNumb);
+        canSpawnThreats = true;
+
+    }
+
+    private void OnCurrentWaveEnded(int currentWaveNumb)
+    {
+        Debug.Log("The wave that ended: " + currentWaveNumb);
+        canSpawnThreats = false;
+    }
+
+    private void MutateThreats(int currentWaveNumb)
+    {
+        //mutate threat based on the current level and wave numb
+        int currentLevel = levelStats.levelNumb;
+        int waveNumb = currentWaveNumb;
+
+
+
+    }
+
+    private void MutateHealthMultiplier()
+    {
+        int currentLevel = levelStats.levelNumb;
+        float newHealthMultiplier = Mathf.Clamp(currentLevel, minHealthMultiplier, maxHealthMultiplier);
+        PlayerPrefsManager.Instance.SetHealthMultiplier(newHealthMultiplier);
+    }
+
+   
 }

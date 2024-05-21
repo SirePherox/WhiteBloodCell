@@ -19,7 +19,12 @@ public class PlayerPrefsManager : SingletonCreator<PlayerPrefsManager>
 
     public float GetCurrentHealthMultiplier()
     {
-        float currentMult = PlayerPrefs.GetFloat(PlayerPrefsNames.THREAT_HEALTH_MULTIPLIER, 1);
+        float currentMult = PlayerPrefs.GetFloat(PlayerPrefsNames.THREAT_HEALTH_MULTIPLIER, 1f);
         return currentMult;
+    }
+
+    public void SetHealthMultiplier(float newValue)
+    {
+        PlayerPrefs.SetFloat(PlayerPrefsNames.THREAT_HEALTH_MULTIPLIER, newValue);
     }
 }
