@@ -27,4 +27,15 @@ public class PlayerPrefsManager : SingletonCreator<PlayerPrefsManager>
     {
         PlayerPrefs.SetFloat(PlayerPrefsNames.THREAT_HEALTH_MULTIPLIER, newValue);
     }
+
+    public float GetCurrentXPMultiplier()
+    {
+        float currentXP = PlayerPrefs.GetFloat(PlayerPrefsNames.THREAT_XP_MULTIPLIER, 1f);
+        return currentXP;
+    }
+
+    public void SetXPMultiplier(float newValue)
+    {
+        PlayerPrefs.SetFloat(PlayerPrefsNames.THREAT_XP_MULTIPLIER, newValue);
+    }
 }

@@ -27,10 +27,13 @@ public class Virus : BaseThreatController
         switch (playerAttackType)
         {
             case PlayerAttackTypes.KILL_ATTACK:
-                healthController.TakeDamage(damageAmount/damageAmountDivideOffset);
+                healthController.TakeHealthDamage(damageAmount/damageAmountDivideOffset);
                 break;
             case PlayerAttackTypes.ENGULF_ATTACK:
                 healthController.DieInstantly();
+                break;
+            case PlayerAttackTypes.WEAKEN_ATTACK:
+                healthController.TakeXPDamage(damageAmount);
                 break;
             default:
                 break;

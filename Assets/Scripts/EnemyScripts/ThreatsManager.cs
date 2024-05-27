@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity;
+//[DefaultExecutionOrder(10)]
 public class ThreatsManager : MonoBehaviour
 {
     [Header("Script References")]
-    private LevelStats levelStats;
+    [SerializeField]private LevelStats levelStats;
 
     [Header("Threat Variables")]
     [SerializeField] private List<Transform> spawnPositions;
@@ -14,9 +15,6 @@ public class ThreatsManager : MonoBehaviour
     private Transform threatParent;
     private bool canSpawnThreats = false;
 
-    [Header("Mutation Variables")]
-    private float minHealthMultiplier = 1.0f;
-    private float maxHealthMultiplier = 5.0f;
 
     [Space]
     [SerializeField]
@@ -35,13 +33,13 @@ public class ThreatsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MutateHealthMultiplier();
-
         //cache scripts
         levelStats = FindFirstObjectByType<LevelStats>();
         //
         WaveController.Instance.OnWaveStart.AddListener(OnNewWaveStarted);
         WaveController.Instance.OnWaveEnd.AddListener(OnCurrentWaveEnded);
+
+        MutateHealthMultiplier();
     }
 
     // Update is called once per frame
@@ -79,6 +77,8 @@ public class ThreatsManager : MonoBehaviour
         newBact.healthController.current_Health = StandardThreatHealth.BACTERIA_HEALTH * PlayerPrefsManager.Instance.GetCurrentHealthMultiplier();
         newBact.healthController.default_Health = StandardThreatHealth.BACTERIA_HEALTH * PlayerPrefsManager.Instance.GetCurrentHealthMultiplier();
 
+        newBact.healthController.default_XP = StandardThreatHealth.BACTERIA_XP * PlayerPrefsManager.Instance.GetCurrentXPMultiplier();
+        newBact.healthController.current_XP = StandardThreatHealth.BACTERIA_XP * PlayerPrefsManager.Instance.GetCurrentXPMultiplier();
     }
 
     private void SpawnVirusThreat()
@@ -90,6 +90,9 @@ public class ThreatsManager : MonoBehaviour
         //set or reset default values
         newVirus.healthController.current_Health = StandardThreatHealth.VIRUS_HEALTH * PlayerPrefsManager.Instance.GetCurrentHealthMultiplier();
         newVirus.healthController.default_Health = StandardThreatHealth.VIRUS_HEALTH * PlayerPrefsManager.Instance.GetCurrentHealthMultiplier();
+
+        newVirus.healthController.default_XP = StandardThreatHealth.VIRUS_XP * PlayerPrefsManager.Instance.GetCurrentXPMultiplier();
+        newVirus.healthController.current_XP = StandardThreatHealth.VIRUS_XP * PlayerPrefsManager.Instance.GetCurrentXPMultiplier();
     }
     public Vector3 GetRandomTransform()
     {
@@ -106,11 +109,11 @@ public class ThreatsManager : MonoBehaviour
         return randomTransform.position;
     }
 
-    private void OnNewWaveStarted(int currentWaveNumb)
+    private void OnNewWaveStarted(int currentWaveNum)
     {
-        Debug.Log("Wave numb is : " + currentWaveNumb);
+        Debug.Log("Wave started numb is : " + currentWaveNum);
         canSpawnThreats = true;
-
+        MutateThreats(currentWaveNum);
     }
 
     private void OnCurrentWaveEnded(int currentWaveNumb)
@@ -121,20 +124,28 @@ public class ThreatsManager : MonoBehaviour
 
     private void MutateThreats(int currentWaveNumb)
     {
-        //mutate threat based on the current level and wave numb
-        int currentLevel = levelStats.levelNumb;
-        int waveNumb = currentWaveNumb;
-
-
-
+        //mutate
+        Debug.Log("Mutating...");
+        MutateHealthMultiplier();
+        MutateXpMultiplier(currentWaveNumb);
     }
 
     private void MutateHealthMultiplier()
     {
         int currentLevel = levelStats.levelNumb;
-        float newHealthMultiplier = Mathf.Clamp(currentLevel, minHealthMultiplier, maxHealthMultiplier);
+        //todo A math calc can be done on currentlevel to make it random or something else
+        //it will be clamped so the result is fine
+        float newHealthMultiplier = Mathf.Clamp(currentLevel, levelStats.minHealthMultiplier, levelStats.maxHealthMultiplier);
         PlayerPrefsManager.Instance.SetHealthMultiplier(newHealthMultiplier);
     }
 
+    private void MutateXpMultiplier(int currentWaveNumb)
+    {
+        //todo a math calc can be done on currentWaveNumber to make it random
+        // the final value is clamped so the reuslt is fine
+        float calcXpMultiplier = currentWaveNumb * 1;
+        float newXpMultiplier = Mathf.Clamp(calcXpMultiplier, levelStats.minXpMultiplier, levelStats.maxXpMultiplier);
+        PlayerPrefsManager.Instance.SetXPMultiplier(newXpMultiplier);
+    }
    
 }

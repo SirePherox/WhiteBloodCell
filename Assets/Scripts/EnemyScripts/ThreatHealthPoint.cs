@@ -6,18 +6,18 @@ using UnityEngine.UI;
 
 public class ThreatHealthPoint : MonoBehaviour
 {
-    [SerializeField] private Slider threatHealth_slider;
-    public float maxHealthAmount;
+    //[SerializeField] private Slider threatHealth_slider;
+    //public float maxHealthAmount;
 
     private void OnEnable()
     {
         //reset slider value
-        threatHealth_slider.value = 1.0f;
+       // threatHealth_slider.value = 1.0f;
     }
     // Start is called before the first frame update
     private void Awake()
     {
-        threatHealth_slider = GetComponent<Slider>();
+        //threatHealth_slider = GetComponent<Slider>();
     }
 
     // Update is called once per frame
@@ -32,19 +32,19 @@ public class ThreatHealthPoint : MonoBehaviour
     //    PlayHitAnim();
     //}
 
-    public void UpdateHealth(float amount)
-    {
-        if(threatHealth_slider
-             == null)
-        {
-            Debug.Log("Slider is null");
-        }
-        else
-        {
-            threatHealth_slider.value = amount / maxHealthAmount;
-        }
+    //public void UpdateHealth(float amount)
+    //{
+    //    if(threatHealth_slider
+    //         == null)
+    //    {
+    //        Debug.Log("Slider is null");
+    //    }
+    //    else
+    //    {
+    //        threatHealth_slider.value = amount / maxHealthAmount;
+    //    }
         
-    }
+    //}
 
     
 }

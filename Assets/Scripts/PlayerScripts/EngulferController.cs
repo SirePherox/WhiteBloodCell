@@ -5,8 +5,8 @@ public class EngulferController : MonoBehaviour
 {
     [Header("Variables")]
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float damagePower = 0.0f; //since it kills them automatically
-    [SerializeField] private float timeToSelfDestroy = 1.5f;
+    [SerializeField] private float damagePower; //since it kills them automatically
+    [SerializeField] private float timeToSelfDestroy;
     private Transform transformToFollow;
 
     /// <summary>

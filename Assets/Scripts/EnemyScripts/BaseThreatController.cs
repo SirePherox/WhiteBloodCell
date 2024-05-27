@@ -8,12 +8,21 @@ public class BaseThreatController : MonoBehaviour
 {
     public ThreatType threatType = ThreatType.Radical;
     public ThreatHealthController healthController;
+
+    /// <summary>
+    /// this effects the speed of movement based on the xpRate (currentXp / defaultXp)
+    /// such that when xp is full (that's 1) , the multiplier is 1
+    /// but if xp reduces , then multiplier is fraction, and speed is also fraction
+    /// </summary>
+    public float xpSpeedMultiplier = 1.0f; 
+
    // public ThreatHealthPoint threatHealthPoint;
     
     // Start is called before the first frame update
     void Start()
     {
         healthController = GetComponent<ThreatHealthController>();
+        healthController.OnDamageToXP.AddListener(UpdateSpeedWithXP);
     }
 
     // Update is called once per frame
@@ -24,7 +33,7 @@ public class BaseThreatController : MonoBehaviour
 
     public virtual void MoveForward(float moveSpeed)
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
+        transform.Translate(Vector3.forward * Time.deltaTime * (moveSpeed * xpSpeedMultiplier));
     }
 
     public virtual void Attack()
@@ -74,11 +83,10 @@ public class BaseThreatController : MonoBehaviour
         }
     }
 
-    //private void UpdateThreatHealthPoint()
-    //{
-    //    //threatHealthPoint.UpdateHealth(healthController.current_Health);
-    //    healthController.UpdateHealth();
-    //}
+    private void UpdateSpeedWithXP(float xpRate)
+    {
+        xpSpeedMultiplier = xpRate;
+    }
 }
 
 //[Serializable]

@@ -8,7 +8,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private ObjectPooler objectPool;
 
     [Header("Prefabs")]
-    [SerializeField] private EngulferController engulfPrefabs;
+    [SerializeField] private EngulferController engulfPrefab;
+    [SerializeField] private WeakenerController weakenPrefab;
 
     public static SpawnManager Instance;
 
@@ -31,8 +32,14 @@ public class SpawnManager : MonoBehaviour
 
     public EngulferController GetEngulfer()
     {
-        EngulferController newEngulf = Instantiate(engulfPrefabs);
+        EngulferController newEngulf = Instantiate(engulfPrefab);
         return newEngulf;
+    }
+
+    public WeakenerController GetWeakener()
+    {
+        WeakenerController newWeak = Instantiate(weakenPrefab);
+        return newWeak;
     }
 
     public Bacteria GetBacteria()

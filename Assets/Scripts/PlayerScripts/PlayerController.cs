@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerAttackTypes.WEAKEN_ATTACK:
                 currentAttackMechanism = AttackMechanism.Weaken;
+                UseWeakenAttack();
                 break;
             case PlayerAttackTypes.CALLIMMUNE_ATTACK:
                 currentAttackMechanism = AttackMechanism.CallImmune;
@@ -137,18 +138,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void WeakenAttack(BaseThreatController enemy)
+    private void UseWeakenAttack()
     {
-        //specify types it can only weaken
-        if (enemy.threatType != ThreatType.Bacteria || enemy.threatType != ThreatType.Virus)
-        {
-            //weaken menchanics
-        }
-        else
-        {
-            Debug.Log("Cant weaken this type of enemy");
-            //show alert
-        }
+        WeakenerController weakener = SpawnManager.Instance.GetWeakener();
+        weakener.transform.position = bulletSpawnPos.position;
+        weakener.transform.parent = spawnItemsParent;
     }
 
     private void CallImmuneHelp()
