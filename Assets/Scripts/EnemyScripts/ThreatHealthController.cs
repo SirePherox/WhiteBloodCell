@@ -75,6 +75,7 @@ public class ThreatHealthController : MonoBehaviour
         {
             threatXP_slider.value = current_XP / default_XP;
             //return the remaining % of XP
+            Debug.Log("Sednig the event..");
             OnDamageToXP?.Invoke(current_XP / default_XP);
         }
     }

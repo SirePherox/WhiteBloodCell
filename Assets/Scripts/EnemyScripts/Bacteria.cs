@@ -12,14 +12,14 @@ public class Bacteria : BaseThreatController
     void Start()
     {
         threatType = ThreatType.Bacteria;
-       
+
+        healthController.OnDamageToXP.AddListener(UpdateSpeedWithXP); //from base class
     }
 
     // Update is called once per frame
     void Update()
     {
         MoveForward(moveSpeed);
-       // bacteriaCurrentHealth = healthController.current_Health;
     }
 
     public override void TakeDamage(string playerAttackType, float damageAmount)

@@ -14,6 +14,8 @@ public class Virus : BaseThreatController
     void Start()
     {
         threatType = ThreatType.Virus;
+        
+        healthController.OnDamageToXP.AddListener(UpdateSpeedWithXP); //from base class
     }
 
     // Update is called once per frame

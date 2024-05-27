@@ -2875,6 +2875,8 @@ MonoBehaviour:
   levelNumb: 1
   minHealthMultiplier: 1
   maxHealthMultiplier: 2
+  minXpMultiplier: 1
+  maxXpMultiplier: 2
 --- !u!4 &1789914522
 Transform:
   m_ObjectHideFlags: 0

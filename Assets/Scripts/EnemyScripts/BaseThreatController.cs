@@ -14,15 +14,15 @@ public class BaseThreatController : MonoBehaviour
     /// such that when xp is full (that's 1) , the multiplier is 1
     /// but if xp reduces , then multiplier is fraction, and speed is also fraction
     /// </summary>
-    public float xpSpeedMultiplier = 1.0f; 
-
+    public float xpSpeedMultiplier = 1.0f;
+    public float currentMoveSpeed;
    // public ThreatHealthPoint threatHealthPoint;
     
     // Start is called before the first frame update
     void Start()
     {
         healthController = GetComponent<ThreatHealthController>();
-        healthController.OnDamageToXP.AddListener(UpdateSpeedWithXP);
+        
     }
 
     // Update is called once per frame
@@ -33,6 +33,7 @@ public class BaseThreatController : MonoBehaviour
 
     public virtual void MoveForward(float moveSpeed)
     {
+        currentMoveSpeed = moveSpeed * xpSpeedMultiplier;
         transform.Translate(Vector3.forward * Time.deltaTime * (moveSpeed * xpSpeedMultiplier));
     }
 
@@ -83,8 +84,9 @@ public class BaseThreatController : MonoBehaviour
         }
     }
 
-    private void UpdateSpeedWithXP(float xpRate)
+    public void UpdateSpeedWithXP(float xpRate)
     {
+        Debug.Log("recieved Sednig the event..");
         xpSpeedMultiplier = xpRate;
     }
 }

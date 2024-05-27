@@ -50,7 +50,7 @@ public class WeakenerController : MonoBehaviour
         if (posOfFirstThreat == Vector3.zero)
         {
             Debug.Log("Cached the first contacted threat transform");
-            transform.position = threat.gameObject.transform.position;
+            posOfFirstThreat = transform.position = threat.gameObject.transform.position;
             moveSpeed = 0.0f; //stop movement
             //start destroy time
             StartCoroutine(DestroyAfterTime());
