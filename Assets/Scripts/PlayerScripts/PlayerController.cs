@@ -25,10 +25,11 @@ public class PlayerController : MonoBehaviour
         KillAttack,
         Engulf,
         Weaken,
-        CallImmune
+        CallImmune,
+        Neutral,
     }
 
-    public AttackMechanism currentAttackMechanism = AttackMechanism.KillAttack;
+    public AttackMechanism currentAttackMechanism = AttackMechanism.Neutral;
     private PlayerHealthManager healthManager;
 
     private void Awake()
@@ -39,11 +40,13 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         uiManager.OnChangeAttackMechanism += OnAttackMechanismChanged;
+        GameStateManager.Instance.OnGameStateChanged += GameStateChanged;
     }
 
     private void OnDisable()
     {
         uiManager.OnChangeAttackMechanism -= OnAttackMechanismChanged;
+        GameStateManager.Instance.OnGameStateChanged -= GameStateChanged;
     }
     // Start is called before the first frame update
     private void Start()
@@ -54,7 +57,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        
         SpawnKillAttackBulletsContinously();
     }
 
@@ -155,4 +157,22 @@ public class PlayerController : MonoBehaviour
         //develop antibodies for recurring threats
     }
     #endregion
+
+    private void GameStateChanged(int newState)
+    {
+        switch (newState)
+        {
+            case 0: //pause
+                  currentAttackMechanism = AttackMechanism.Neutral;
+                break;
+            case 1: //resume
+                currentAttackMechanism = AttackMechanism.KillAttack;
+                break;
+            default:
+                Debug.LogWarning("Couldnt handle state changed, setting player attack to neutral");
+                currentAttackMechanism = AttackMechanism.Neutral;
+                break;
+
+        }
+    }
 }

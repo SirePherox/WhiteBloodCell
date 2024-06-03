@@ -40,3 +40,10 @@ public class PlayerPrefsNames
     public const string THREAT_HEALTH_MULTIPLIER = "ThreatHealthMultiplier";
     public const string THREAT_XP_MULTIPLIER = "ThreatXPMultiplier";
 }
+
+public class SceneIndex
+{
+    public const int mainMenu = 0;
+    public const int levelOne = 1;
+    public const int levelTwo = 2;
+}

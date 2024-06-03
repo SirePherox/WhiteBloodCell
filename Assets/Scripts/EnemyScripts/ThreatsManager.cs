@@ -9,6 +9,7 @@ public class ThreatsManager : MonoBehaviour
     [Header("Script References")]
     [SerializeField]private LevelStats levelStats;
 
+
     [Header("Threat Variables")]
     [SerializeField] private List<Transform> spawnPositions;
     private List<Transform> tempList; // Temporary list for random selection
@@ -38,10 +39,14 @@ public class ThreatsManager : MonoBehaviour
         //
         WaveController.Instance.OnWaveStart.AddListener(OnNewWaveStarted);
         WaveController.Instance.OnWaveEnd.AddListener(OnCurrentWaveEnded);
-
+        GameStateManager.Instance.OnGameStateChanged += GameStateChanged;
         MutateHealthMultiplier();
     }
 
+    private void OnDisable()
+    {
+        GameStateManager.Instance.OnGameStateChanged -= GameStateChanged;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -147,5 +152,22 @@ public class ThreatsManager : MonoBehaviour
         float newXpMultiplier = Mathf.Clamp(calcXpMultiplier, levelStats.minXpMultiplier, levelStats.maxXpMultiplier);
         PlayerPrefsManager.Instance.SetXPMultiplier(newXpMultiplier);
     }
-   
+
+    private void GameStateChanged(int newState)
+    {
+        switch (newState)
+        {
+            case 0: //pause
+                canSpawnThreats = false;
+                break;
+            case 1: //resume
+                canSpawnThreats = true;
+                break;
+            default:
+                Debug.LogWarning("Couldnt handle state changed, playing as usual");
+                canSpawnThreats = true;
+                break;
+
+        }
+    }
 }

@@ -7,8 +7,14 @@ public class UIManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private Image waveDelayUi_img;
     [SerializeField] private Image waveTimer_img;
-    public UnityAction<string> OnChangeAttackMechanism;
+    [SerializeField] private Button pause_btn;
 
+    [Header("Pause Variables")]
+    [SerializeField] private Transform pausePanel;
+    [SerializeField] private Button resume_btn;
+
+    public UnityAction<string> OnChangeAttackMechanism;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,4 +45,13 @@ public class UIManager : MonoBehaviour
         waveTimer_img.fillAmount = WaveController.Instance.GetWaveTimerRate();
     }
 
+    private void PauseGame()
+    {
+       GameStateManager.Instance.OnGameStateChanged?.Invoke(0);
+    }
+
+    private void ResumeGame()
+    {
+        GameStateManager.Instance.OnGameStateChanged?.Invoke(1);
+    }
 }
