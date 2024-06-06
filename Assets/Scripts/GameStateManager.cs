@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[DefaultExecutionOrder(-10)]
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance;

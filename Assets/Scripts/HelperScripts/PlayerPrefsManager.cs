@@ -38,4 +38,16 @@ public class PlayerPrefsManager : SingletonCreator<PlayerPrefsManager>
     {
         PlayerPrefs.SetFloat(PlayerPrefsNames.THREAT_XP_MULTIPLIER, newValue);
     }
+
+    public void SetNextSceneToLoad(int sceneIndex)
+    {
+        //check if index is correct or can be accessed
+        //todo to ensure player don't rig and send an index of a locked level
+        PlayerPrefs.SetInt(PlayerPrefsNames.NEXT_SCENE_TO_LOAD, sceneIndex);
+    }
+
+    public int GetNextSceneToLoad()
+    {
+        return PlayerPrefs.GetInt(PlayerPrefsNames.NEXT_SCENE_TO_LOAD, SceneIndex.mainMenu);
+    }
 }

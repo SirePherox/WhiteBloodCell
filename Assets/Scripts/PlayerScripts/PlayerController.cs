@@ -40,18 +40,22 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         uiManager.OnChangeAttackMechanism += OnAttackMechanismChanged;
-        GameStateManager.Instance.OnGameStateChanged += GameStateChanged;
+        
     }
 
     private void OnDisable()
     {
         uiManager.OnChangeAttackMechanism -= OnAttackMechanismChanged;
-        GameStateManager.Instance.OnGameStateChanged -= GameStateChanged;
+        if(GameStateManager.Instance!= null)
+        {
+            GameStateManager.Instance.OnGameStateChanged -= GameStateChanged;
+        }
+       
     }
     // Start is called before the first frame update
     private void Start()
     {
-        
+        GameStateManager.Instance.OnGameStateChanged += GameStateChanged;
     }
 
     // Update is called once per frame

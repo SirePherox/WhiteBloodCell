@@ -20,6 +20,7 @@ public class WaveController : MonoBehaviour
     //EVENTS
     public UnityEvent<int> OnWaveStart;
     public UnityEvent<int> OnWaveEnd;
+    private bool hasInvokedWaveStart;
 
     public static WaveController Instance;
 
@@ -31,6 +32,7 @@ public class WaveController : MonoBehaviour
     void Start()
     {
         ResetOnNewLevelLoad();
+        hasInvokedWaveStart = false;
     }
 
     // Update is called once per frame
@@ -74,7 +76,7 @@ public class WaveController : MonoBehaviour
     {
         if (canStartTimeForCurrentWave)
         {
-            OnWaveStart?.Invoke(currentWaveNumb);
+            CallWaveStartOneTime();
 
             currentTimeForThisWave -= Time.deltaTime;
             if(currentTimeForThisWave <= 0.0f)
@@ -87,12 +89,23 @@ public class WaveController : MonoBehaviour
         
     }
 
+    private void CallWaveStartOneTime()
+    {
+        if (!hasInvokedWaveStart)
+        {
+            OnWaveStart?.Invoke(currentWaveNumb);
+            hasInvokedWaveStart = true;
+        }
+    }
+   
+
     private void OnWaveEnded()
     {
         OnWaveEnd?.Invoke(currentWaveNumb);
 
         canStartTimeForCurrentWave = false;
         currentTimeForThisWave = timeForAWave;
+        hasInvokedWaveStart = false; //reset after wave ended
         WaveControl();
     }
 

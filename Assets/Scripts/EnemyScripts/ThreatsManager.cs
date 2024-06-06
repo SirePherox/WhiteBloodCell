@@ -14,7 +14,7 @@ public class ThreatsManager : MonoBehaviour
     [SerializeField] private List<Transform> spawnPositions;
     private List<Transform> tempList; // Temporary list for random selection
     private Transform threatParent;
-    private bool canSpawnThreats = false;
+   [SerializeField] private bool canSpawnThreats = false;
 
 
     [Space]
@@ -45,7 +45,11 @@ public class ThreatsManager : MonoBehaviour
 
     private void OnDisable()
     {
-        GameStateManager.Instance.OnGameStateChanged -= GameStateChanged;
+        if (GameStateManager.Instance != null)
+        {
+            GameStateManager.Instance.OnGameStateChanged -= GameStateChanged;
+        }
+        
     }
     // Update is called once per frame
     void Update()
@@ -157,6 +161,7 @@ public class ThreatsManager : MonoBehaviour
     {
         switch (newState)
         {
+            
             case 0: //pause
                 canSpawnThreats = false;
                 break;

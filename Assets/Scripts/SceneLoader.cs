@@ -36,6 +36,11 @@ public class SceneLoader : SingletonCreator<SceneLoader>
         }
     }
 
+    public void LoadScene(int sceneIndex)
+    {
+        SceneManager.LoadScene(sceneIndex);
+    }
+
     private int GetCurrentSceneIndex()
     {
         return SceneManager.GetActiveScene().buildIndex;

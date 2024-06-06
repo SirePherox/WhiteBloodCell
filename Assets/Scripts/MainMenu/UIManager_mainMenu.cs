@@ -29,8 +29,10 @@ public class UIManager_mainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        //load preselected scene index
-        StartCoroutine(SceneLoader.Instance.LoadSceneInAsync(lvlSelector.sceneIndexToLoad));
+        //save scene to load to playerprefs
+        PlayerPrefsManager.Instance.SetNextSceneToLoad(lvlSelector.sceneIndexToLoad);
+        //load Loading scene
+        SceneLoader.Instance.LoadScene(SceneIndex.loadingScene);
     }
 
     #region - Level Buttons-
