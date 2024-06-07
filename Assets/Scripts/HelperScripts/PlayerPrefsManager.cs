@@ -50,4 +50,16 @@ public class PlayerPrefsManager : SingletonCreator<PlayerPrefsManager>
     {
         return PlayerPrefs.GetInt(PlayerPrefsNames.NEXT_SCENE_TO_LOAD, SceneIndex.mainMenu);
     }
+
+    public void SetSoundSliderVolume(string sliderName, float sliderValue)
+    {
+        float valTosave = Mathf.Clamp(sliderValue, 0.0f, 1.0f);
+        PlayerPrefs.SetFloat(sliderName, valTosave);
+    }
+
+    public float GetSoundSliderVolume(string sliderName)
+    {
+        return PlayerPrefs.GetFloat(sliderName,0.45f);
+    }
+
 }

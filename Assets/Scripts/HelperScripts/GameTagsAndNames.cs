@@ -40,6 +40,8 @@ public class PlayerPrefsNames
     public const string THREAT_HEALTH_MULTIPLIER = "ThreatHealthMultiplier";
     public const string THREAT_XP_MULTIPLIER = "ThreatXPMultiplier";
     public const string NEXT_SCENE_TO_LOAD = "NextSceneToLoad";
+    public const string MUSIC_SLIDER = "MusicSlider";
+    public const string SFX_SLIDER = "SoundEffectsSlider";
 }
 
 public class SceneIndex
