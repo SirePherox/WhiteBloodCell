@@ -5,13 +5,18 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovementController : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private PlayerAnimationController animController;
+    private CharacterController charCont;
+
     [Header("Move Variables")]
     [SerializeField] private float horMoveSpeed = 5.0f;
     [SerializeField] private PlayerInputActions playerInput;
     [SerializeField] private float boundaryXMin ; // Minimum X boundary
     [SerializeField] private float boundaryXMax ;  // Maximum X boundary
-    private CharacterController charCont;
 
+
+    [SerializeField] private Vector2 playerMoveInput;
     private void Awake()
     {
         charCont = GetComponent<CharacterController>();
@@ -21,13 +26,12 @@ public class PlayerMovementController : MonoBehaviour
 
     private void OnEnable()
     {
-        playerInput.Player.TouchSwipe.Enable();
-        playerInput.Player.TouchSwipe.performed += x => MovePlayerHorizontalTouch(x.ReadValue<Vector2>()) ;
+        playerInput.Player.Enable();
     }
 
     private void OnDisable()
     {
-        playerInput.Player.TouchSwipe.Disable();
+        playerInput.Player.Disable();
     }
     // Start is called before the first frame update
     void Start()
@@ -38,24 +42,37 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MovePlayer();
         MovePlayerHorizontal();
+        MovePlayerHorizontal_Touch();
         ClampHorizontalMovement();
     }
 
-    private void MovePlayerHorizontal()
-    {
-        float horAxis = Input.GetAxis("Horizontal");
-        Vector3 moveDir = new Vector3(-(horAxis * horMoveSpeed), 0f, 0f);
+   
 
-        //move
-        charCont.Move(moveDir * Time.deltaTime);
+    private void MovePlayerHorizontal_Touch()
+    {
+        Vector2 inputVector = playerInput.Player.TouchSwipe.ReadValue<Vector2>();
+        inputVector = new(-(inputVector.x * horMoveSpeed), 0.0f);
+        //playerMoveInput = inputVector;
+        animController.WalkAnimBasedOnInput(inputVector);
+        charCont.Move(inputVector * Time.deltaTime);
     }
 
-    private void MovePlayerHorizontalTouch(Vector2 newVec)
-    {
-        Vector3 moveDir = new Vector3(-(newVec.x * horMoveSpeed), 0f, 0f); //thee newVec has already been normalized in the input actions preprocessors
 
-        charCont.Move(moveDir * Time.deltaTime);
+    private void MovePlayerHorizontal()
+    {
+        Vector2 inputVector = playerInput.Player.Move.ReadValue<Vector2>();
+        inputVector = new(-(inputVector.x * horMoveSpeed), 0.0f);
+        //playerMoveInput = inputVector;
+        animController.WalkAnimBasedOnInput(inputVector);
+        charCont.Move(inputVector * Time.deltaTime);
+        
+    }
+
+    private void MovePlayer()
+    {
+        charCont.Move(playerMoveInput * Time.deltaTime);
     }
 
     private void ClampHorizontalMovement()

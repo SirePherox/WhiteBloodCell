@@ -24,6 +24,8 @@ public class ThreatTypes
 public class AnimatorTags
 {
     public const string THREAT_HIT_TAG = "Hit";
+    public const string PLAYER_WALK_LEFT = "WalkLeft";
+    public const string PLAYER_WALK_RIGHT = "WalkRight";
 }
 
 public class StandardThreatHealth
@@ -52,3 +54,4 @@ public class SceneIndex
     public const int levelTwo = 3;
     
 }
+
