@@ -42,10 +42,11 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MovePlayer();
+        
         MovePlayerHorizontal();
-        MovePlayerHorizontal_Touch();
-        ClampHorizontalMovement();
+        // MovePlayerHorizontal_Touch();
+        //ClampHorizontalMovement();
+        ClampHorMovement();
     }
 
    
@@ -53,9 +54,9 @@ public class PlayerMovementController : MonoBehaviour
     private void MovePlayerHorizontal_Touch()
     {
         Vector2 inputVector = playerInput.Player.TouchSwipe.ReadValue<Vector2>();
-        inputVector = new(-(inputVector.x * horMoveSpeed), 0.0f);
+        inputVector = new((inputVector.x * horMoveSpeed), 0.0f);
         //playerMoveInput = inputVector;
-        animController.WalkAnimBasedOnInput(inputVector);
+        animController.WalkAnimBasedOnInput(inputVector.x < 0);
         charCont.Move(inputVector * Time.deltaTime);
     }
 
@@ -64,21 +65,14 @@ public class PlayerMovementController : MonoBehaviour
     {
         Vector2 inputVector = playerInput.Player.Move.ReadValue<Vector2>();
         inputVector = new(-(inputVector.x * horMoveSpeed), 0.0f);
-        //playerMoveInput = inputVector;
-        animController.WalkAnimBasedOnInput(inputVector);
         charCont.Move(inputVector * Time.deltaTime);
         
     }
 
-    private void MovePlayer()
-    {
-        charCont.Move(playerMoveInput * Time.deltaTime);
-    }
 
-    private void ClampHorizontalMovement()
+    private void ClampHorMovement()
     {
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, boundaryXMin, boundaryXMax),
-                                         transform.position.y,
-                                         transform.position.z);
+                                            transform.position.y, transform.position.z) ;
     }
 }

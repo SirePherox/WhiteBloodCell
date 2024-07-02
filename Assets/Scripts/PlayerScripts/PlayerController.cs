@@ -40,17 +40,17 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         uiManager.OnChangeAttackMechanism += OnAttackMechanismChanged;
-        
+
     }
 
     private void OnDisable()
     {
         uiManager.OnChangeAttackMechanism -= OnAttackMechanismChanged;
-        if(GameStateManager.Instance!= null)
+        if (GameStateManager.Instance != null)
         {
             GameStateManager.Instance.OnGameStateChanged -= GameStateChanged;
         }
-       
+
     }
     // Start is called before the first frame update
     private void Start()
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         BaseThreatController threat;
-        if(other.TryGetComponent<BaseThreatController>(out threat))
+        if (other.TryGetComponent<BaseThreatController>(out threat))
         {
             switch (threat.threatType)
             {
@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
                     Debug.LogWarning("COULDN'T HANDLE THIS THREAT TYPE, CANT DEAL DAMAGE TO PLAYER");
                     break;
 
-              
+
             }
 
 
@@ -128,13 +128,16 @@ public class PlayerController : MonoBehaviour
 
     private void SpawnKillAttackBullets()
     {
-            BulletController newBullet = SpawnManager.Instance.GetKillAttackBullet();
-            newBullet.transform.position = bulletSpawnPos.position;
-            newBullet.transform.parent = spawnItemsParent;
+        BulletController newBullet = SpawnManager.Instance.GetKillAttackBullet();
+        Debug.Log("Spawn poositioin: " + bulletSpawnPos.position);
+        newBullet.transform.SetParent(spawnItemsParent,false);
+        newBullet.transform.position = bulletSpawnPos.position;
+       
+        Debug.Log("Bullet spawn " + newBullet.name + " " + newBullet.transform.position);
     }
     #endregion
 
-    
+
     #region - Attack Mechanisms-
     private void UseEngulfAttack()
     {
@@ -167,7 +170,7 @@ public class PlayerController : MonoBehaviour
         switch (newState)
         {
             case 0: //pause
-                  currentAttackMechanism = AttackMechanism.Neutral;
+                currentAttackMechanism = AttackMechanism.Neutral;
                 break;
             case 1: //resume
                 currentAttackMechanism = AttackMechanism.KillAttack;
