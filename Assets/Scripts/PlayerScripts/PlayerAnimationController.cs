@@ -21,11 +21,14 @@ public class PlayerAnimationController : MonoBehaviour
         
     }
 
-    public void WalkAnimBasedOnInput(bool isMovingLeft)
+    public void WalkAnimBasedOnInput(Vector2 inputVec)
     {
         // Set WalkLeft/Right based on direction (Touch input)
-        Debug.Log("move vctor" + isMovingLeft);
-        animator.SetBool(AnimatorTags.PLAYER_WALK_LEFT, isMovingLeft); // Update WalkLeft 
-        animator.SetBool(AnimatorTags.PLAYER_WALK_RIGHT, !isMovingLeft); // Update WalkRight 
+        Debug.Log("move left" + (inputVec.x <= -1.0f));
+        Debug.Log("move right" + (inputVec.x >= 1.0f));
+        bool isWalkingLeft = inputVec.x <= -1.0f;
+        bool isWalkingRight = inputVec.x >= 1.0f;
+        animator.SetBool(AnimatorTags.PLAYER_WALK_LEFT, isWalkingLeft); // Update WalkLeft 
+        animator.SetBool(AnimatorTags.PLAYER_WALK_RIGHT, isWalkingRight); // Update WalkRight 
     }
 }

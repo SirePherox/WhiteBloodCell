@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float killAttackAmount = 5.0f;
     private float killAttackBulletFireRate = 2.0f;
     private float nextFireTime = 0.0f;
+
     [Serializable]
     public enum AttackMechanism
     {
@@ -56,6 +57,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         GameStateManager.Instance.OnGameStateChanged += GameStateChanged;
+        currentAttackMechanism = AttackMechanism.Neutral;
     }
 
     // Update is called once per frame
@@ -68,6 +70,9 @@ public class PlayerController : MonoBehaviour
     {
         switch (newMechanism)
         {
+            case PlayerAttackTypes.NEUTRAL:
+                currentAttackMechanism = AttackMechanism.Neutral;
+                break;
             case PlayerAttackTypes.KILL_ATTACK:
                 currentAttackMechanism = AttackMechanism.KillAttack;
                 break;
@@ -84,7 +89,7 @@ public class PlayerController : MonoBehaviour
                 break;
             default:
                 Debug.LogWarning("COULDNT HANDLE NEW MECHANISM, DEFAULTING TO KILL ATTACK");
-                currentAttackMechanism = AttackMechanism.KillAttack;
+                currentAttackMechanism = AttackMechanism.Neutral;
                 break;
         }
     }
@@ -129,11 +134,8 @@ public class PlayerController : MonoBehaviour
     private void SpawnKillAttackBullets()
     {
         BulletController newBullet = SpawnManager.Instance.GetKillAttackBullet();
-        Debug.Log("Spawn poositioin: " + bulletSpawnPos.position);
         newBullet.transform.SetParent(spawnItemsParent,false);
         newBullet.transform.position = bulletSpawnPos.position;
-       
-        Debug.Log("Bullet spawn " + newBullet.name + " " + newBullet.transform.position);
     }
     #endregion
 

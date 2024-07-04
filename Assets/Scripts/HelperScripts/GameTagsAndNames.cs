@@ -13,6 +13,7 @@ public class PlayerAttackTypes
     public const string ENGULF_ATTACK = "EngulfAttack";
     public const string WEAKEN_ATTACK = "WeakenAttack";
     public const string CALLIMMUNE_ATTACK = "CallImmuneAttack";
+    public const string NEUTRAL = "Neutral";
 }
 
 public class ThreatTypes

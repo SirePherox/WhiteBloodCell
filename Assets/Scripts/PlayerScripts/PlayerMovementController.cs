@@ -56,7 +56,8 @@ public class PlayerMovementController : MonoBehaviour
         Vector2 inputVector = playerInput.Player.TouchSwipe.ReadValue<Vector2>();
         inputVector = new((inputVector.x * horMoveSpeed), 0.0f);
         //playerMoveInput = inputVector;
-        animController.WalkAnimBasedOnInput(inputVector.x < 0);
+        Debug.Log("isMovingLeft : " + (inputVector.x < 0.1f));
+      //  animController.WalkAnimBasedOnInput(inputVector.x < 0);
         charCont.Move(inputVector * Time.deltaTime);
     }
 
@@ -64,6 +65,9 @@ public class PlayerMovementController : MonoBehaviour
     private void MovePlayerHorizontal()
     {
         Vector2 inputVector = playerInput.Player.Move.ReadValue<Vector2>();
+
+        animController.WalkAnimBasedOnInput(inputVector);
+
         inputVector = new(-(inputVector.x * horMoveSpeed), 0.0f);
         charCont.Move(inputVector * Time.deltaTime);
         
