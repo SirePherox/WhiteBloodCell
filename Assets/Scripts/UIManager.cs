@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+
     [Header("UI References")]
     [SerializeField] private Image waveDelayUi_img;
     [SerializeField] private Image waveTimer_img;
@@ -13,8 +14,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform pausePanel;
     [SerializeField] private Button resume_btn;
     [SerializeField] private Button mainMenu_btn;
-
-    public UnityAction<string> OnChangeAttackMechanism;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,6 +22,7 @@ public class UIManager : MonoBehaviour
         WaveController.Instance.OnWaveEnd.AddListener(ShowWaveDelayUI);
         AddButtonOnclickEvents();
         ResumeGame(); //to autohide the pause panel if in case its on
+
     }
 
     // Update is called once per frame

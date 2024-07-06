@@ -11,7 +11,7 @@ public class AttackButtonsOnClicks : MonoBehaviour
     [SerializeField] private Image batterylevel_img;
     [SerializeField] private bool isKillAttack; //tick this to disble incompatible behaviours for the kill attack button
     private Button button;
-    private UIManager uiManager;
+    private PlayerController playerController;
 
 
     private void Awake()
@@ -22,8 +22,8 @@ public class AttackButtonsOnClicks : MonoBehaviour
     void Start()
     {
        
-        uiManager = FindFirstObjectByType<UIManager>();
-        if(button == null || uiManager == null)
+        playerController = FindFirstObjectByType<PlayerController>();
+        if(button == null || playerController == null)
         {
             Debug.LogWarning("COULDN'T CACHE, ATTACK SWITCHING MIGHT NOT WORK");
         }
@@ -52,7 +52,7 @@ public class AttackButtonsOnClicks : MonoBehaviour
     {
         //use up the battey
         currentBatteryLevel = 0;
-        uiManager.OnChangeAttackMechanism?.Invoke(attackMech);
+        playerController.OnChangeAttackMechanism?.Invoke(attackMech);
     }
 
     public void SetToKillAttack()

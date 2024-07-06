@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 7939197656582400434}
   - component: {fileID: 1972361282232761258}
   - component: {fileID: 8908148300001091464}
+  - component: {fileID: 7428525912726198100}
   m_Layer: 0
   m_Name: Virus
   m_TagString: Untagged
@@ -263,6 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   threatType: 3
   healthController: {fileID: 8908148300001091464}
+  animationController: {fileID: 7428525912726198100}
   xpSpeedMultiplier: 1
   currentMoveSpeed: 0
   moveSpeed: 2
@@ -289,6 +291,19 @@ MonoBehaviour:
   OnDamageToXP:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7428525912726198100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4784156366538279113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d51dae820aa44508262daa3937a2ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threatAnimator: {fileID: 2224226180318644812}
 --- !u!1001 &2522230532526836626
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -362,6 +377,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d45d9110d7254db0ab26a8e5b835bbb, type: 3}
+--- !u!95 &2224226180318644812 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4458223484298609118, guid: 7d45d9110d7254db0ab26a8e5b835bbb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2522230532526836626}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4273382115991115192 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1751576083561471530, guid: 7d45d9110d7254db0ab26a8e5b835bbb,
@@ -490,6 +511,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ThreatHealth_slider
+      objectReference: {fileID: 0}
+    - target: {fileID: 7297990667290479447, guid: 823f6e0d5c46d479cbd21d01b20106b4,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7297990667290479447, guid: 823f6e0d5c46d479cbd21d01b20106b4,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7297990667290479447, guid: 823f6e0d5c46d479cbd21d01b20106b4,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -624,6 +660,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ThreatXP_slider
+      objectReference: {fileID: 0}
+    - target: {fileID: 7297990667290479447, guid: 0d30a4d39a8034769b6a2ca165c350b1,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7297990667290479447, guid: 0d30a4d39a8034769b6a2ca165c350b1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7297990667290479447, guid: 0d30a4d39a8034769b6a2ca165c350b1,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

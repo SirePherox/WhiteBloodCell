@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 2540510052711360493}
   - component: {fileID: 7098233431752094569}
   - component: {fileID: 7643253998679924192}
+  - component: {fileID: 7527493374650564789}
   m_Layer: 0
   m_Name: Bacteria
   m_TagString: Untagged
@@ -285,10 +286,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   threatType: 0
   healthController: {fileID: 7098233431752094569}
+  animationController: {fileID: 7527493374650564789}
   xpSpeedMultiplier: 1
   currentMoveSpeed: 0
   moveSpeed: 2.5
   damagePower: 3
+--- !u!114 &7527493374650564789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8117361533036249424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d51dae820aa44508262daa3937a2ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threatAnimator: {fileID: 7173678047736668700}
 --- !u!1001 &1365185263346691116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -362,6 +377,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e19f64557a2643929a72a44c9617e0b, type: 3}
+--- !u!95 &7173678047736668700 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8177440635758579248, guid: 6e19f64557a2643929a72a44c9617e0b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1365185263346691116}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8015642883339885295 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9065557450395760323, guid: 6e19f64557a2643929a72a44c9617e0b,

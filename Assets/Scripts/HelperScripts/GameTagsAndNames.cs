@@ -27,6 +27,10 @@ public class AnimatorTags
     public const string THREAT_HIT_TAG = "Hit";
     public const string PLAYER_WALK_LEFT = "WalkLeft";
     public const string PLAYER_WALK_RIGHT = "WalkRight";
+    public const string ENGULF_ATTACK = "Weaken";
+    public const string WEAKEN_ATTACK = "Weaken";
+    public const string KILL_ATTACK = "Kill";
+    public const string THREAT_DEAD = "Dead";
 }
 
 public class StandardThreatHealth

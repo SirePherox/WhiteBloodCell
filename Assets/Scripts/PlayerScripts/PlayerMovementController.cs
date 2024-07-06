@@ -42,34 +42,41 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Get inputs
         MovePlayerHorizontal();
-        // MovePlayerHorizontal_Touch();
-        //ClampHorizontalMovement();
-        ClampHorMovement();
+        MovePlayerHorizontal_Touch();
+
+        //Move player
+        MovePlayer();
+       
     }
 
    
+    private void MovePlayer()
+    {
+        Vector3 moveKeybaord = MovePlayerHorizontal();
+        Vector3 moveTouch = MovePlayerHorizontal_Touch();
+        Vector3 movementInputVector = moveKeybaord + moveTouch;
 
-    private void MovePlayerHorizontal_Touch()
+        charCont.Move(movementInputVector * Time.deltaTime);
+        ClampHorMovement();
+    }
+
+    private Vector3 MovePlayerHorizontal_Touch()
     {
         Vector2 inputVector = playerInput.Player.TouchSwipe.ReadValue<Vector2>();
-        inputVector = new((inputVector.x * horMoveSpeed), 0.0f);
-        //playerMoveInput = inputVector;
-        Debug.Log("isMovingLeft : " + (inputVector.x < 0.1f));
-      //  animController.WalkAnimBasedOnInput(inputVector.x < 0);
-        charCont.Move(inputVector * Time.deltaTime);
+        inputVector = new(-(inputVector.x * horMoveSpeed), 0.0f);
+        Vector3 movementVec = new(inputVector.x, 0.0f, 0.0f);
+        return movementVec;
     }
 
 
-    private void MovePlayerHorizontal()
+    private Vector3 MovePlayerHorizontal()
     {
         Vector2 inputVector = playerInput.Player.Move.ReadValue<Vector2>();
-
-        animController.WalkAnimBasedOnInput(inputVector);
-
         inputVector = new(-(inputVector.x * horMoveSpeed), 0.0f);
-        charCont.Move(inputVector * Time.deltaTime);
+        Vector3 movementVec = new(inputVector.x, 0.0f, 0.0f);
+        return movementVec;
         
     }
 

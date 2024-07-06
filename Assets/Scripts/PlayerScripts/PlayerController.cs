@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerHealthManager))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Script References")]
-    [SerializeField] private UIManager uiManager;
+    private PlayerHealthManager healthManager;
 
     [Space]
     [Header("References")]
@@ -15,38 +16,33 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform spawnItemsParent; //SpawnManager object
 
     [Space]
-    [Header("Attack Vars")]
-    [SerializeField] private float killAttackAmount = 5.0f;
+    [Header("Attack Variables")]
     private float killAttackBulletFireRate = 2.0f;
     private float nextFireTime = 0.0f;
 
     [Serializable]
     public enum AttackMechanism
     {
+        Neutral,
         KillAttack,
         Engulf,
         Weaken,
-        CallImmune,
-        Neutral,
+        CallImmune
     }
 
-    public AttackMechanism currentAttackMechanism = AttackMechanism.Neutral;
-    private PlayerHealthManager healthManager;
+    //EVENTS
+    public UnityEvent<string> OnChangeAttackMechanism;
+   [SerializeField] private AttackMechanism currentAttackMechanism;// = AttackMechanism.Neutral;
+
 
     private void Awake()
     {
         healthManager = GetComponent<PlayerHealthManager>();
     }
 
-    private void OnEnable()
-    {
-        uiManager.OnChangeAttackMechanism += OnAttackMechanismChanged;
-
-    }
 
     private void OnDisable()
     {
-        uiManager.OnChangeAttackMechanism -= OnAttackMechanismChanged;
         if (GameStateManager.Instance != null)
         {
             GameStateManager.Instance.OnGameStateChanged -= GameStateChanged;
@@ -58,6 +54,8 @@ public class PlayerController : MonoBehaviour
     {
         GameStateManager.Instance.OnGameStateChanged += GameStateChanged;
         currentAttackMechanism = AttackMechanism.Neutral;
+
+        OnChangeAttackMechanism.AddListener(OnAttackMechanismChanged);
     }
 
     // Update is called once per frame
@@ -88,7 +86,7 @@ public class PlayerController : MonoBehaviour
                 currentAttackMechanism = AttackMechanism.CallImmune;
                 break;
             default:
-                Debug.LogWarning("COULDNT HANDLE NEW MECHANISM, DEFAULTING TO KILL ATTACK");
+                Debug.LogWarning("COULDNT HANDLE NEW MECHANISM" + newMechanism + " , DEFAULTING TO KILL ATTACK");
                 currentAttackMechanism = AttackMechanism.Neutral;
                 break;
         }
@@ -175,7 +173,7 @@ public class PlayerController : MonoBehaviour
                 currentAttackMechanism = AttackMechanism.Neutral;
                 break;
             case 1: //resume
-                currentAttackMechanism = AttackMechanism.KillAttack;
+                currentAttackMechanism = AttackMechanism.Neutral;
                 break;
             default:
                 Debug.LogWarning("Couldnt handle state changed, setting player attack to neutral");

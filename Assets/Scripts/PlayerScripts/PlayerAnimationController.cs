@@ -4,6 +4,7 @@ public class PlayerAnimationController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Animator animator;
+    private PlayerController playerController;
 
     private void Awake()
     {
@@ -12,7 +13,8 @@ public class PlayerAnimationController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        playerController = GetComponent<PlayerController>();
+        playerController.OnChangeAttackMechanism.AddListener(ChangeAnimationBasedOnAttackMechanism);
     }
 
     // Update is called once per frame
@@ -21,14 +23,27 @@ public class PlayerAnimationController : MonoBehaviour
         
     }
 
-    public void WalkAnimBasedOnInput(Vector2 inputVec)
+    public void ChangeAnimationBasedOnAttackMechanism(string newAttackMech)
     {
-        // Set WalkLeft/Right based on direction (Touch input)
-        Debug.Log("move left" + (inputVec.x <= -1.0f));
-        Debug.Log("move right" + (inputVec.x >= 1.0f));
-        bool isWalkingLeft = inputVec.x <= -1.0f;
-        bool isWalkingRight = inputVec.x >= 1.0f;
-        animator.SetBool(AnimatorTags.PLAYER_WALK_LEFT, isWalkingLeft); // Update WalkLeft 
-        animator.SetBool(AnimatorTags.PLAYER_WALK_RIGHT, isWalkingRight); // Update WalkRight 
+        switch (newAttackMech)
+        {
+            case PlayerAttackTypes.KILL_ATTACK:
+                animator.SetBool(AnimatorTags.KILL_ATTACK, true);
+                break;
+            case PlayerAttackTypes.NEUTRAL:
+                animator.SetBool(AnimatorTags.KILL_ATTACK, false);
+                break;
+            case PlayerAttackTypes.ENGULF_ATTACK:
+                animator.SetBool(AnimatorTags.KILL_ATTACK, false);
+                animator.SetTrigger(AnimatorTags.ENGULF_ATTACK);
+                break;
+            case PlayerAttackTypes.WEAKEN_ATTACK:
+                animator.SetBool(AnimatorTags.KILL_ATTACK, false);
+                animator.SetTrigger(AnimatorTags.WEAKEN_ATTACK);
+                break;
+            default:
+                Debug.LogWarning("COULDN'T HANDLE ATTACK MECHANISM. CORRECT ANIIMATION WON'T PLAY");
+                break;
+        }
     }
 }
