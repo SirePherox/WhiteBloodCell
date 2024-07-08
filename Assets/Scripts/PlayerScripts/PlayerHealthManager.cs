@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerHealthManager : MonoBehaviour
 {
+    [Header("Script References")]
+    private GameStateManager gameState;
+
     [Header("Variables")]
     private float _currentPlayerHealth;
     private float defaultPlayerHealth = 100.0f;
@@ -23,6 +26,7 @@ public class PlayerHealthManager : MonoBehaviour
     void Start()
     {
         _currentPlayerHealth = defaultPlayerHealth;
+        gameState = GameStateManager.Instance;
     }
 
     // Update is called once per frame
@@ -64,6 +68,8 @@ public class PlayerHealthManager : MonoBehaviour
         {
             //game over
             Debug.Log("Game over with player death");
+            gameState.OnGameSessionEnded?.Invoke(0);
+            gameState.StopTimeScale();
         }
     }
     private bool IsPlayerDead()

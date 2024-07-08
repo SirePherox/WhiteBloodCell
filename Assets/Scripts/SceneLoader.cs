@@ -36,12 +36,25 @@ public class SceneLoader : SingletonCreator<SceneLoader>
         }
     }
 
+    /// <summary>
+    /// loads a scene, but first shows
+    /// the Loading scene
+    /// </summary>
+    /// <param name="sceneIndex"></param>
+    public void LoadSceneWithLoadingScene(int sceneIndex)
+    {
+        //save scene to load to playerprefs
+        PlayerPrefsManager.Instance.SetNextSceneToLoad(sceneIndex);
+        //load Loading scene
+        LoadScene(SceneIndex.loadingScene);
+    }
+
     public void LoadScene(int sceneIndex)
     {
         SceneManager.LoadScene(sceneIndex);
     }
 
-    private int GetCurrentSceneIndex()
+    public int GetCurrentSceneIndex()
     {
         return SceneManager.GetActiveScene().buildIndex;
     }
@@ -49,5 +62,24 @@ public class SceneLoader : SingletonCreator<SceneLoader>
     public void ReloadCurrentScene()
     {
         SceneManager.LoadScene(GetCurrentSceneIndex());
+    }
+
+    public int GetNextLevelSceneIndex(int currentCompletedLvlNumb)
+    {
+        int nxtSceneIndex = 0;
+
+        switch (currentCompletedLvlNumb)
+        {
+            case 1:
+                nxtSceneIndex = SceneIndex.levelTwo;
+                break;
+            case 2:
+                nxtSceneIndex = SceneIndex.levelThree;
+                break;
+            default:
+                nxtSceneIndex = SceneIndex.mainMenu;
+                break;
+        }
+        return nxtSceneIndex;
     }
 }

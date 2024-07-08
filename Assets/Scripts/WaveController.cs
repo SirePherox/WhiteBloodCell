@@ -6,16 +6,18 @@ public class WaveController : MonoBehaviour
 
     [Header("Script References")]
     [SerializeField] private LevelStats currentLevelStats;
-    
+    private GameStateManager gameState;
 
 
-    [Header( "Wave Variables")]
+
+    [Header("Wave Variables")]
     [SerializeField] private int numberOfWavesForThisLevel;
-    [SerializeField] private int currentWaveNumb;
+    private int currentWaveNumb;
     private float timeForAWave = 20.0f;
     private float waveDelayInterval = 9.0f;
     [SerializeField] private float currentTimeForThisWave;
     [SerializeField] private bool canStartTimeForCurrentWave = false;
+    private float timeDelayBeforeShowingWin = 3.0f;
 
     //EVENTS
     public UnityEvent<int> OnWaveStart;
@@ -31,8 +33,13 @@ public class WaveController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameState = GameStateManager.Instance;
+        //
         ResetOnNewLevelLoad();
         hasInvokedWaveStart = false;
+
+        OnWaveEnd.AddListener(CheckLevelCompleted);
+     
     }
 
     // Update is called once per frame
@@ -45,7 +52,7 @@ public class WaveController : MonoBehaviour
     private void ResetOnNewLevelLoad()
     {
         currentLevelStats = FindFirstObjectByType<LevelStats>();
-        if(currentLevelStats == null)
+        if (currentLevelStats == null)
         {
             Debug.LogError("COULDNT CACHE SCRIPTS, LEVEL CAN'T LOAD");
             return;
@@ -60,10 +67,11 @@ public class WaveController : MonoBehaviour
 
     private void WaveControl()
     {
-       if(currentWaveNumb < numberOfWavesForThisLevel) //wave for this level hasn't been completed
+        if (currentWaveNumb < numberOfWavesForThisLevel) //wave for this level hasn't been completed
         {
             StartCoroutine(StartWaveAfterDelay());
         }
+
     }
     private IEnumerator StartWaveAfterDelay()
     {
@@ -79,14 +87,14 @@ public class WaveController : MonoBehaviour
             CallWaveStartOneTime();
 
             currentTimeForThisWave -= Time.deltaTime;
-            if(currentTimeForThisWave <= 0.0f)
+            if (currentTimeForThisWave <= 0.0f)
             {
                 //time for this wave ended
                 currentTimeForThisWave = 0.0f;
                 OnWaveEnded();
             }
         }
-        
+
     }
 
     private void CallWaveStartOneTime()
@@ -97,7 +105,7 @@ public class WaveController : MonoBehaviour
             hasInvokedWaveStart = true;
         }
     }
-   
+
 
     private void OnWaveEnded()
     {
@@ -109,6 +117,22 @@ public class WaveController : MonoBehaviour
         WaveControl();
     }
 
+    private void CheckLevelCompleted(int lvlNumb)
+    {
+        if(numberOfWavesForThisLevel == lvlNumb)
+        {
+            Debug.Log("Level completed success");
+            StartCoroutine(OnLevelCompleted());
+        }
+    }
+
+    private IEnumerator OnLevelCompleted()
+    {
+        yield return new WaitForSeconds(timeDelayBeforeShowingWin);
+        PlayerPrefsManager.Instance.SetLevelCompletedNumber(currentLevelStats.levelNumb);
+        gameState.OnGameSessionEnded?.Invoke(1);
+        gameState.StopTimeScale();
+    }
     /// <summary>
     /// Returns currentWaveTime divided by totalTimeForAWave
     /// </summary>

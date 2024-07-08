@@ -25,6 +25,9 @@ public class LevelSelectorManager : MonoBehaviour
             case 2:
                 sceneIndexToLoad = SceneIndex.levelTwo;
                 break;
+            case 3:
+                sceneIndexToLoad = SceneIndex.levelThree;
+                break;
             default:
                 Debug.LogWarning("Couldnt parse the input, loading the first level scene");
                 sceneIndexToLoad = SceneIndex.levelOne;

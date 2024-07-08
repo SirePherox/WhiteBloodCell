@@ -17,6 +17,13 @@ public class GameStateManager : MonoBehaviour
     /// 2 - quit
     /// </summary>
     public UnityAction<int> OnGameStateChanged;
+
+    /// <summary>
+    /// 0 - Level Failed
+    /// 1 - Level Completed
+    /// </summary>
+    public UnityEvent<int> OnGameSessionEnded;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,4 +35,15 @@ public class GameStateManager : MonoBehaviour
     {
         
     }
+    public void StopTimeScale()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void StartTimeScale()
+    {
+        Time.timeScale = 1;
+    }
+
+   
 }

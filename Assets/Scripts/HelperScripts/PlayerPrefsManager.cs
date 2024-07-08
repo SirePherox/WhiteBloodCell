@@ -62,4 +62,14 @@ public class PlayerPrefsManager : SingletonCreator<PlayerPrefsManager>
         return PlayerPrefs.GetFloat(sliderName,0.45f);
     }
 
+    public void SetLevelCompletedNumber(int currentLevelCompleted)
+    {
+        PlayerPrefs.SetInt(PlayerPrefsNames.CURRENT_LEVEL_NUMBER, currentLevelCompleted);
+    }
+
+    public int GetLevelCompletedNumber()
+    {
+        int currentLvlCompleted = PlayerPrefs.GetInt(PlayerPrefsNames.CURRENT_LEVEL_NUMBER, 0);
+        return currentLvlCompleted;
+    }
 }

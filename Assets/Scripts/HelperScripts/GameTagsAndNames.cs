@@ -49,6 +49,7 @@ public class PlayerPrefsNames
     public const string NEXT_SCENE_TO_LOAD = "NextSceneToLoad";
     public const string MUSIC_SLIDER = "MusicSlider";
     public const string SFX_SLIDER = "SoundEffectsSlider";
+    public const string CURRENT_LEVEL_NUMBER = "CompletedLevelNumber";
 }
 
 public class SceneIndex
@@ -57,6 +58,7 @@ public class SceneIndex
     public const int loadingScene = 1;
     public const int levelOne = 2;
     public const int levelTwo = 3;
-    
+    public const int levelThree = 4;
+
 }
 
