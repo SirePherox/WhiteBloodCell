@@ -69,6 +69,10 @@ public class SpawnManager : MonoBehaviour
 
     public void ReturnKillAttackBulletToPool(BulletController bullet)
     {
-        objectPool.killAttackBulletPool.Release(bullet);
+        if (bullet.gameObject.activeInHierarchy) //an attempt to avoid releasing an object that has been released already
+        {
+            objectPool.killAttackBulletPool.Release(bullet);
+        }
+       
     }
 }

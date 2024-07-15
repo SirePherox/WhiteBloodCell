@@ -10,6 +10,8 @@ public class SoundController : SingletonCreator<SoundController>
     [SerializeField] private AudioClip buttonClick;
     [SerializeField] private AudioClip killAttack;
     [SerializeField] private AudioClip engulfAttack;
+    [SerializeField] private AudioClip weakenAttack;
+
     [Space]
     [SerializeField] private AudioClip mainMenu;
 
@@ -20,7 +22,8 @@ public class SoundController : SingletonCreator<SoundController>
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        sfxVolume = PlayerPrefsManager.Instance.GetSoundSliderVolume(PlayerPrefsNames.SFX_SLIDER);
+        musicVolume = PlayerPrefsManager.Instance.GetSoundSliderVolume(PlayerPrefsNames.MUSIC_SLIDER);
     }
 
     // Update is called once per frame
@@ -50,6 +53,19 @@ public class SoundController : SingletonCreator<SoundController>
     {
         PlaySFXEffects(engulfAttack, false);
     }
+
+    public void PlayNeutralAttack()
+    {
+        sfxSource.loop = false;
+        sfxSource.Stop();
+        
+    }
+
+    public void PlayWeakenAttack()
+    {
+        PlaySFXEffects(weakenAttack, false);
+    }
+
     #endregion
 
     private void PlayMusic(AudioClip clip)
@@ -66,7 +82,16 @@ public class SoundController : SingletonCreator<SoundController>
         sfxSource.Stop();
         sfxSource.loop = isLoop;
         sfxSource.volume = sfxVolume;
-        sfxSource.PlayOneShot(clip);
+        if (isLoop)
+        {
+            sfxSource.clip = clip;
+            sfxSource.Play();
+        }
+        else
+        {
+            sfxSource.PlayOneShot(clip);
+        }
+        
     }
 
 

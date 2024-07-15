@@ -31,6 +31,8 @@ public class AnimatorTags
     public const string WEAKEN_ATTACK = "Weaken";
     public const string KILL_ATTACK = "Kill";
     public const string THREAT_DEAD = "Dead";
+    public const string PLAYER_DEAD = "Dead";
+    public const string PLAYER_WIN = "Win";
 }
 
 public class StandardThreatHealth

@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
         ResumeGame(); //to autohide the pause panel if in case its on
 
         gameState = GameStateManager.Instance;
-        gameState.OnGameSessionEnded.AddListener(ShowSessionEnd);
+        gameState.OnGameSessionEndedUI.AddListener(ShowSessionEnd);
     }
 
     // Update is called once per frame
@@ -78,14 +78,14 @@ public class UIManager : MonoBehaviour
         GameStateManager.Instance.StartTimeScale();
     }
 
-    private void MainMenu()
-    {
-        //save scene to load to playerprefs
-        PlayerPrefsManager.Instance.SetNextSceneToLoad(SceneIndex.mainMenu);
-        Time.timeScale = 1;
-        //load Loading scene
-        SceneLoader.Instance.LoadScene(SceneIndex.loadingScene);
-    }
+    //private void MainMenu()
+    //{
+    //    //save scene to load to playerprefs
+    //    PlayerPrefsManager.Instance.SetNextSceneToLoad(SceneIndex.mainMenu);
+    //    Time.timeScale = 1;
+    //    //load Loading scene
+    //    SceneLoader.Instance.LoadScene(SceneIndex.loadingScene);
+    //}
 
     private void AddButtonOnclickEvents()
     {
@@ -94,7 +94,7 @@ public class UIManager : MonoBehaviour
 
         //pause panel
         resume_btn.onClick.AddListener(ResumeGame);
-        mainMenu_btn.onClick.AddListener(MainMenu);
+        mainMenu_btn.onClick.AddListener(LoadMainMenuScene);
 
         //level failed panel
         mainMenu_lvlCompleted.onClick.AddListener(LoadMainMenuScene);

@@ -131,7 +131,7 @@ public class WaveController : MonoBehaviour
         yield return new WaitForSeconds(timeDelayBeforeShowingWin);
         PlayerPrefsManager.Instance.SetLevelCompletedNumber(currentLevelStats.levelNumb);
         gameState.OnGameSessionEnded?.Invoke(1);
-        gameState.StopTimeScale();
+        StartCoroutine(nameof(StopScale));
     }
     /// <summary>
     /// Returns currentWaveTime divided by totalTimeForAWave
@@ -139,5 +139,12 @@ public class WaveController : MonoBehaviour
     public float GetWaveTimerRate()
     {
         return currentTimeForThisWave / timeForAWave;
+    }
+
+    private IEnumerator StopScale()
+    {
+        float timeDelay = 4.0f; //appxmtely time needed for the win animation to finish playing
+        yield return new WaitForSeconds(timeDelay);
+        gameState.StopTimeScale();
     }
 }

@@ -37,24 +37,28 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void TakeDamage(string threatType, float damageAmount)
     {
-        //show vfx
-
-
-        //TODO Deal specific damage based on threat types
-        switch (threatType)
+        if (!IsPlayerDead())
         {
-            case ThreatTypes.BACTERIA:
-                _currentPlayerHealth -= damageAmount;
-                break;
-            case ThreatTypes.VIRUS:
-                _currentPlayerHealth -= damageAmount;
-                break;
-            default:
-                Debug.LogWarning("COULDNT HANDLE THE THREATTYPE, CANT DEAL DAMAGE TO PLAYER HEALTH");
-                break;
+            //show vfx
+
+
+            //TODO Deal specific damage based on threat types
+            switch (threatType)
+            {
+                case ThreatTypes.BACTERIA:
+                    _currentPlayerHealth -= damageAmount;
+                    break;
+                case ThreatTypes.VIRUS:
+                    _currentPlayerHealth -= damageAmount;
+                    break;
+                default:
+                    Debug.LogWarning("COULDNT HANDLE THE THREATTYPE, CANT DEAL DAMAGE TO PLAYER HEALTH");
+                    break;
+            }
+
+            CheckIsPlayerDeadGameOver();
         }
 
-        CheckIsPlayerDeadGameOver();
     }
 
     public void Heal(float healAmount)
@@ -69,11 +73,18 @@ public class PlayerHealthManager : MonoBehaviour
             //game over
             Debug.Log("Game over with player death");
             gameState.OnGameSessionEnded?.Invoke(0);
-            gameState.StopTimeScale();
+            StartCoroutine(nameof(StopScale));
         }
     }
     private bool IsPlayerDead()
     {
         return _currentPlayerHealth <= 0.0f;
+    }
+
+    private IEnumerator StopScale()
+    {
+        float timeDelay = 4.0f; //appxmtely time needed for the dead animation to finish playing
+        yield return new WaitForSeconds(timeDelay);
+        gameState.StopTimeScale();
     }
 }

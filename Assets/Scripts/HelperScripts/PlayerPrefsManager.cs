@@ -59,7 +59,16 @@ public class PlayerPrefsManager : SingletonCreator<PlayerPrefsManager>
 
     public float GetSoundSliderVolume(string sliderName)
     {
-        return PlayerPrefs.GetFloat(sliderName,0.45f);
+        float valueToSend;
+        if (sliderName == PlayerPrefsNames.MUSIC_SLIDER)
+        {
+            valueToSend = 0.4f; //default music volume
+        }
+        else
+        {
+            valueToSend = 0.65f; //default sfx volume
+        }
+        return PlayerPrefs.GetFloat(sliderName,valueToSend);
     }
 
     public void SetLevelCompletedNumber(int currentLevelCompleted)

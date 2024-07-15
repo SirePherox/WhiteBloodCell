@@ -24,6 +24,12 @@ public class GameStateManager : MonoBehaviour
     /// </summary>
     public UnityEvent<int> OnGameSessionEnded;
 
+    /// <summary>
+    /// Same function as OnGameSessionEnded;
+    /// But for the UI, as the event needs to be invoked after
+    /// OnGameSessionEnded
+    /// </summary>
+    public UnityEvent<int> OnGameSessionEndedUI; 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

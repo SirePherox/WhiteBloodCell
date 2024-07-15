@@ -1,20 +1,22 @@
 using UnityEngine;
-
+using System.Collections;
 public class PlayerAnimationController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Animator animator;
     private PlayerController playerController;
+    private GameStateManager gameState;
 
-    private void Awake()
-    {
-       // animator = GetComponent<Animator>();
-    }
+    private float timeDelay = 3.5f; //appxmtely time needed for the dead animation to finish playing
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerController = GetComponent<PlayerController>();
         playerController.OnChangeAttackMechanism.AddListener(ChangeAnimationBasedOnAttackMechanism);
+
+        gameState = GameStateManager.Instance;
+        gameState.OnGameSessionEnded.AddListener(PlaySessionEndAnimation);
     }
 
     // Update is called once per frame
@@ -45,5 +47,34 @@ public class PlayerAnimationController : MonoBehaviour
                 Debug.LogWarning("COULDN'T HANDLE ATTACK MECHANISM. CORRECT ANIIMATION WON'T PLAY");
                 break;
         }
+    }
+
+    public void PlaySessionEndAnimation(int sessionEndStatus)
+    {
+        if (sessionEndStatus == 1)
+        {
+            //game won
+            animator.SetTrigger(AnimatorTags.PLAYER_WIN);
+            StartCoroutine(nameof(InvokeSessionEndForWinUI));
+        }
+        else
+        {
+            //game lost
+            animator.SetTrigger(AnimatorTags.PLAYER_DEAD);
+            StartCoroutine(nameof(InvokeSessionEndForFailedUI));
+        }
+        
+    }
+
+    private IEnumerator InvokeSessionEndForWinUI()
+    {
+        yield return new WaitForSeconds(timeDelay);
+        gameState.OnGameSessionEndedUI?.Invoke(1);
+    }
+
+    private IEnumerator InvokeSessionEndForFailedUI()
+    {
+        yield return new WaitForSeconds(timeDelay);
+        gameState.OnGameSessionEndedUI?.Invoke(0);
     }
 }

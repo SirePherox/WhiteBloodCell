@@ -45,6 +45,11 @@ public class SceneLoader : SingletonCreator<SceneLoader>
     {
         //save scene to load to playerprefs
         PlayerPrefsManager.Instance.SetNextSceneToLoad(sceneIndex);
+        //check for time scale
+        if(Time.timeScale != 1)
+        {
+            Time.timeScale = 1;
+        }
         //load Loading scene
         LoadScene(SceneIndex.loadingScene);
     }
