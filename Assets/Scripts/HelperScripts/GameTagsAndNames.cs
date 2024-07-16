@@ -56,11 +56,12 @@ public class PlayerPrefsNames
 
 public class SceneIndex
 {
-    public const int mainMenu = 0;
-    public const int loadingScene = 1;
-    public const int levelOne = 2;
-    public const int levelTwo = 3;
-    public const int levelThree = 4;
+    public const int splashScene = 0;
+    public const int mainMenu = 1;
+    public const int loadingScene = 2;
+    public const int levelOne = 3;
+    public const int levelTwo = 4;
+    public const int levelThree = 5;
 
 }
 

@@ -66,10 +66,14 @@ public class BaseThreatController : MonoBehaviour
 
     private void CheckToReturnToPool()
     {
-        if (healthController.IsThreatDead())
+        if (gameObject.activeInHierarchy)
         {
-            StartCoroutine(CheckToReturnThreatToPool());
+            if (healthController.IsThreatDead())
+            {
+                StartCoroutine(CheckToReturnThreatToPool());
+            }
         }
+
     }
     private IEnumerator CheckToReturnThreatToPool()
     {
