@@ -85,21 +85,25 @@ public class UIManager_mainMenu : MonoBehaviour
 
     private void OpenSettingsPanel()
     {
+        SoundController.Instance.PlayButtonClick();
         settings_panel.gameObject.SetActive(true);
     }
 
     private void CloseSettingsPanel()
     {
+        SoundController.Instance.PlayButtonClick();
         settings_panel.gameObject.SetActive(false);
     }
 
     private void OpenHelpPanel()
     {
+        SoundController.Instance.PlayButtonClick();
         help_panel.gameObject.SetActive(true);
     }
 
     private void CloseHelpPanel()
     {
+        SoundController.Instance.PlayButtonClick();
         help_panel.gameObject.SetActive(false);
     }
 }

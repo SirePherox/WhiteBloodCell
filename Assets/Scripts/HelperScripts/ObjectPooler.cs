@@ -6,7 +6,7 @@ using UnityEngine.Pool;
 [DefaultExecutionOrder(-10)]
 public class ObjectPooler : MonoBehaviour
 {
-    [Header("Pool Refereebces")]
+    [Header("Pool References")]
     [SerializeField] private BulletController killAttackBulletsPrefab;
     [SerializeField] private Bacteria bacteriaPrefab;
     [SerializeField] private Virus virusPrefab;

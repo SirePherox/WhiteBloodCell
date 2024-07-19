@@ -66,6 +66,7 @@ public class UIManager : MonoBehaviour
 
     private void PauseGame()
     {
+        SoundController.Instance.PlayButtonClick();
        GameStateManager.Instance.OnGameStateChanged?.Invoke(0);
         pausePanel.gameObject.SetActive(true);
         GameStateManager.Instance.StopTimeScale();
@@ -73,6 +74,7 @@ public class UIManager : MonoBehaviour
 
     private void ResumeGame()
     {
+        SoundController.Instance.PlayButtonClick();
         GameStateManager.Instance.OnGameStateChanged?.Invoke(1);
         pausePanel.gameObject.SetActive(false);
         GameStateManager.Instance.StartTimeScale();
@@ -128,16 +130,19 @@ public class UIManager : MonoBehaviour
 
     private void LoadMainMenuScene()
     {
+        SoundController.Instance.PlayButtonClick();
         SceneLoader.Instance.LoadSceneWithLoadingScene(SceneIndex.mainMenu);
     }
 
     private void RetryLevel()
     {
+        SoundController.Instance.PlayButtonClick();
         SceneLoader.Instance.LoadSceneWithLoadingScene(SceneLoader.Instance.GetCurrentSceneIndex());
     }
 
     private void LoadNextLevel()
     {
+        SoundController.Instance.PlayButtonClick();
         int currentClearedLvl = PlayerPrefsManager.Instance.GetLevelCompletedNumber();
         int nxtLvlSceneIndex = SceneLoader.Instance.GetNextLevelSceneIndex(currentClearedLvl);
         SceneLoader.Instance.LoadSceneWithLoadingScene(nxtLvlSceneIndex) ;

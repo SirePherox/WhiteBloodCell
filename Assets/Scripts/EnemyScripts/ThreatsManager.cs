@@ -15,6 +15,9 @@ public class ThreatsManager : MonoBehaviour
     private List<Transform> tempList; // Temporary list for random selection
     private Transform threatParent;
    [SerializeField] private bool canSpawnThreats = false;
+    [SerializeField] private bool canSpawnVirus;
+    [SerializeField] private bool canSpawnBacteria;
+    [SerializeField] private bool canSpawnToxins;
 
 
     [Space]
@@ -62,18 +65,21 @@ public class ThreatsManager : MonoBehaviour
 
     private void SpawnThreats()
     {
-        if (Time.time > bacteriaNextSpawnTime)
+        if (Time.time > bacteriaNextSpawnTime && canSpawnBacteria )
         {
             SpawnBacteriaThreat();
             bacteriaNextSpawnTime = Time.time + 1f / bacteriaSpawnRate; // Update next spawn time based on spawn rate
         }
 
-        if (Time.time > virusNextSpawnTime)
+        if (Time.time > virusNextSpawnTime && canSpawnVirus)
         {
             SpawnVirusThreat();
             virusNextSpawnTime = Time.time + 1f / virusSpawnRate;
         }
+
+
     }
+
 
     private void SpawnBacteriaThreat()
     {

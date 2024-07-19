@@ -30,6 +30,7 @@ public class LevelButton : MonoBehaviour
 
     private void SelectLevel()
     {
+        SoundController.Instance.PlayButtonClick();
         lvlSelector.UpdateSceneBasedOnLevelSelected(levelNumb);
     }
 

@@ -15,16 +15,8 @@ public class SoundController : SingletonCreator<SoundController>
     [Space]
     [SerializeField] private AudioClip mainMenu;
 
-    [Header("Variables")]
-    private float sfxVolume;
-    private float musicVolume;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        sfxVolume = PlayerPrefsManager.Instance.GetSoundSliderVolume(PlayerPrefsNames.SFX_SLIDER);
-        musicVolume = PlayerPrefsManager.Instance.GetSoundSliderVolume(PlayerPrefsNames.MUSIC_SLIDER);
-    }
 
     // Update is called once per frame
     void Update()
@@ -72,7 +64,7 @@ public class SoundController : SingletonCreator<SoundController>
     {
         musicSource.Stop();
         musicSource.loop = true;
-        musicSource.volume = musicVolume;
+        musicSource.volume = PlayerPrefsManager.Instance.GetSoundSliderVolume(PlayerPrefsNames.MUSIC_SLIDER);
         musicSource.clip = clip;
         musicSource.Play();
     }
@@ -81,7 +73,7 @@ public class SoundController : SingletonCreator<SoundController>
     {
         sfxSource.Stop();
         sfxSource.loop = isLoop;
-        sfxSource.volume = sfxVolume;
+        sfxSource.volume = PlayerPrefsManager.Instance.GetSoundSliderVolume(PlayerPrefsNames.SFX_SLIDER); ;
         if (isLoop)
         {
             sfxSource.clip = clip;

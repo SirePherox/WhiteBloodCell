@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LevelStats : MonoBehaviour
 {
-    public float totalTimeForLevel = 180.0f;
+    public float totalTimeForLevel;
     public string healItem = "Cytogen";
     public int levelNumb = 1;
 
