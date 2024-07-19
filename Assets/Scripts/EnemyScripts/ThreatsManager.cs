@@ -14,21 +14,20 @@ public class ThreatsManager : MonoBehaviour
     [SerializeField] private List<Transform> spawnPositions;
     private List<Transform> tempList; // Temporary list for random selection
     private Transform threatParent;
-   [SerializeField] private bool canSpawnThreats = false;
+    private bool canSpawnThreats = false;
     [SerializeField] private bool canSpawnVirus;
     [SerializeField] private bool canSpawnBacteria;
-    [SerializeField] private bool canSpawnToxins;
+    [SerializeField] private bool canSpawnToxin;
 
 
     [Space]
-    [SerializeField]
     private float bacteriaNextSpawnTime = 0.0f;
-    [SerializeField]
     private float virusNextSpawnTime = 0.0f;
+    private float toxinNextSpawnTime = 0.0f;
 
     [SerializeField] private float bacteriaSpawnRate;
     [SerializeField] private float virusSpawnRate;
-
+    [SerializeField] private float toxinSpawnRate;
     private void Awake()
     {
         threatParent = GetComponent<Transform>();
@@ -77,6 +76,11 @@ public class ThreatsManager : MonoBehaviour
             virusNextSpawnTime = Time.time + 1f / virusSpawnRate;
         }
 
+        if (Time.time > toxinNextSpawnTime && canSpawnToxin)
+        {
+            SpawnToxinThreat();
+            toxinNextSpawnTime = Time.time + 1f / toxinSpawnRate;
+        }
 
     }
 
@@ -108,6 +112,20 @@ public class ThreatsManager : MonoBehaviour
 
         newVirus.healthController.default_XP = StandardThreatHealth.VIRUS_XP * PlayerPrefsManager.Instance.GetCurrentXPMultiplier();
         newVirus.healthController.current_XP = StandardThreatHealth.VIRUS_XP * PlayerPrefsManager.Instance.GetCurrentXPMultiplier();
+    }
+
+    private void SpawnToxinThreat()
+    {
+        Toxin newToxin = SpawnManager.Instance.GetToxin();
+        newToxin.transform.position = GetRandomTransform();
+        newToxin.transform.parent = threatParent;
+
+        //set or reset default values
+        newToxin.healthController.current_Health = StandardThreatHealth.VIRUS_HEALTH * PlayerPrefsManager.Instance.GetCurrentHealthMultiplier();
+        newToxin.healthController.default_Health = StandardThreatHealth.VIRUS_HEALTH * PlayerPrefsManager.Instance.GetCurrentHealthMultiplier();
+
+        newToxin.healthController.default_XP = StandardThreatHealth.VIRUS_XP * PlayerPrefsManager.Instance.GetCurrentXPMultiplier();
+        newToxin.healthController.current_XP = StandardThreatHealth.VIRUS_XP * PlayerPrefsManager.Instance.GetCurrentXPMultiplier();
     }
     public Vector3 GetRandomTransform()
     {

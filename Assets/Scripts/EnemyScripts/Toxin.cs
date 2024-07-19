@@ -1,23 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Bacteria : BaseThreatController
+public class Toxin : BaseThreatController
 {
     [Header("Variables")]
     [SerializeField] private float moveSpeed = 5.0f;
-     //public float bacteriaDefaultHealth;
-     public float damagePower = 3.0f;
+    public float damagePower = 3.0f;
+
     // Start is called before the first frame update
     private void Start()
     {
-        threatType = ThreatType.Bacteria;
+        threatType = ThreatType.Toxin;
 
         healthController.OnDamageToXP.AddListener(UpdateSpeedWithXP); //from base class
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         MoveForward(moveSpeed);
     }

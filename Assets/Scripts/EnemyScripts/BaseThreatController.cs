@@ -93,6 +93,9 @@ public class BaseThreatController : MonoBehaviour
             case ThreatType.Virus:
                 SpawnManager.Instance.ReturnVirusToPool(this.GetComponent<Virus>());
                 break;
+            case ThreatType.Toxin:
+                SpawnManager.Instance.ReturnToxinToPool(this.GetComponent<Toxin>());
+                break;
             default:
                 Debug.LogWarning("COULDN'T HANDLE THE THREAT TYPE, OBJECT WASNT RETURNED TO POOL");
                 break;

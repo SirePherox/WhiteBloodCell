@@ -2342,14 +2342,12 @@ MonoBehaviour:
   - {fileID: 783815922}
   - {fileID: 394364718}
   - {fileID: 105046109}
-  canSpawnThreats: 0
-  canSpawnVirus: 0
-  canSpawnBacteria: 0
-  canSpawnToxins: 0
-  bacteriaNextSpawnTime: 0
-  virusNextSpawnTime: 0
-  bacteriaSpawnRate: 0.25
-  virusSpawnRate: 0.125
+  canSpawnVirus: 1
+  canSpawnBacteria: 1
+  canSpawnToxin: 1
+  bacteriaSpawnRate: 0.1
+  virusSpawnRate: 0.25
+  toxinSpawnRate: 0.2
 --- !u!4 &774579283
 Transform:
   m_ObjectHideFlags: 0
@@ -6462,6 +6460,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1467439926322203492, guid: 50b62ef1badad455fa0f22fba66355ff,
+        type: 3}
+      propertyPath: toxinPrefab
+      value: 
+      objectReference: {fileID: 7594227115596659125, guid: 3b135adb663c44030819a23ef9515134,
+        type: 3}
     - target: {fileID: 1809814308132865127, guid: 50b62ef1badad455fa0f22fba66355ff,
         type: 3}
       propertyPath: m_Enabled

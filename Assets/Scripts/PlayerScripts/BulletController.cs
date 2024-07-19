@@ -39,6 +39,9 @@ public class BulletController : MonoBehaviour
                 case ThreatType.Virus:
                     threat.GetComponent<Virus>().TakeDamage(PlayerAttackTypes.KILL_ATTACK, damagePower);
                     break;
+                case ThreatType.Toxin:
+                    threat.GetComponent<Toxin>().TakeDamage(PlayerAttackTypes.KILL_ATTACK, damagePower);
+                    break;
                 default:
                     Debug.LogWarning("COULDN'T HANDLE THE THREAT TYPE, OBJECT WASNT RETURNED TO POOL");
                     break;

@@ -105,6 +105,9 @@ public class PlayerController : MonoBehaviour
                 case ThreatType.Virus:
                     healthManager.TakeDamage(ThreatTypes.VIRUS, threat.GetComponent<Virus>().damagePower);
                     break;
+                case ThreatType.Toxin:
+                    healthManager.TakeDamage(ThreatTypes.TOXIN, threat.GetComponent<Toxin>().damagePower);
+                    break;
                 default:
                     Debug.LogWarning("COULDN'T HANDLE THIS THREAT TYPE, CANT DEAL DAMAGE TO PLAYER");
                     break;

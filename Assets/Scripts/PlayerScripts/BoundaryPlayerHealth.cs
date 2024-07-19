@@ -42,6 +42,9 @@ public class BoundaryPlayerHealth : MonoBehaviour
                 case ThreatType.Virus:
                     playerHealth.TakeDamage(ThreatTypes.VIRUS, other.transform.GetComponent<Virus>().healthController.current_Health);
                     break;
+                case ThreatType.Toxin:
+                    playerHealth.TakeDamage(ThreatTypes.TOXIN, other.transform.GetComponent<Toxin>().healthController.current_Health);
+                    break;
                 default:
                     Debug.LogError("COULDN'T HANDLE THE THREAT, BOUNDARY DAMAGE WASNT DONE");
                     break;

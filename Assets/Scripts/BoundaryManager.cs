@@ -30,6 +30,9 @@ public class BoundaryManager : MonoBehaviour
                 case ThreatType.Virus:
                     SpawnManager.Instance.ReturnVirusToPool(other.transform.GetComponent<Virus>());
                     break;
+                case ThreatType.Toxin:
+                    SpawnManager.Instance.ReturnToxinToPool(other.transform.GetComponent<Toxin>());
+                    break;
                 default:
                     Debug.LogError("COULDN'T HANDLE THE THREAT, THREAT WASNT RETURNED TO POOL");
                     break;

@@ -20,6 +20,7 @@ public class ThreatTypes
 {
     public const string BACTERIA = "Bacteria";
     public const string VIRUS = "Virus";
+    public const string TOXIN = "Toxin";
 }
 
 public class AnimatorTags

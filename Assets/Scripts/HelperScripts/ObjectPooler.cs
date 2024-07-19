@@ -10,6 +10,7 @@ public class ObjectPooler : MonoBehaviour
     [SerializeField] private BulletController killAttackBulletsPrefab;
     [SerializeField] private Bacteria bacteriaPrefab;
     [SerializeField] private Virus virusPrefab;
+    [SerializeField] private Toxin toxinPrefab;
 
     [Space]
     [Header("Pool Variables")]
@@ -23,6 +24,7 @@ public class ObjectPooler : MonoBehaviour
     [SerializeField] private int maxThreatPoolSize;
     public ObjectPool<Bacteria> bacteriaThreatPool;
     public ObjectPool<Virus> virusThreatPool;
+    public ObjectPool<Toxin> toxinThreatPool;
 
     private bool collectionCheck = true;
     // Start is called before the first frame update
@@ -38,6 +40,10 @@ public class ObjectPooler : MonoBehaviour
         virusThreatPool = new ObjectPool<Virus>(CreateVirus, GetThreatFromPool,
                                                     ReturnThreatToPool, DestroyThreat, collectionCheck,
                                                        defaultThreatPoolSize, maxThreatPoolSize);
+
+        toxinThreatPool = new ObjectPool<Toxin>(CreateToxin, GetThreatFromPool,
+                                            ReturnThreatToPool, DestroyThreat, collectionCheck,
+                                               defaultThreatPoolSize, maxThreatPoolSize);
     }
 
     // Update is called once per frame
@@ -59,6 +65,11 @@ public class ObjectPooler : MonoBehaviour
         return newVirus;
     }
 
+    private Toxin CreateToxin()
+    {
+        Toxin newToxin  = Instantiate(toxinPrefab);
+        return newToxin;
+    }
     private void GetThreatFromPool(BaseThreatController threat)
     {
         threat.gameObject.SetActive(true);

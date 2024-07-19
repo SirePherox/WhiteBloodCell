@@ -57,9 +57,19 @@ public class SpawnManager : MonoBehaviour
         return objectPool.virusThreatPool.Get();
     }
 
+    public Toxin GetToxin()
+    {
+        return objectPool.toxinThreatPool.Get();
+    }
+
     public void ReturnVirusToPool(Virus threat)
     {
         objectPool.virusThreatPool.Release(threat);
+    }
+
+    public void ReturnToxinToPool(Toxin threat)
+    {
+        objectPool.toxinThreatPool.Release(threat);
     }
 
     public BulletController GetKillAttackBullet()
