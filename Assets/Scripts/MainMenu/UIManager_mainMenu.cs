@@ -21,11 +21,17 @@ public class UIManager_mainMenu : MonoBehaviour
     [SerializeField] private Transform help_panel;
     [SerializeField] private Button closeHelp_btn;
 
+    [Header("Credits Variables")]
+    [SerializeField] private Button credits_btn;
+    [SerializeField] private Transform credits_panel;
+    [SerializeField] private Button closeCredits_btn;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        PlayMusic();
 
-        if(lvlSelector == null)
+        if (lvlSelector == null)
         {
             Debug.LogError("COULDNT CACHE LEVEL SELECTOR , ENSURE ITS ATTACHED PROPERLY REFERENCED");
         }
@@ -48,39 +54,23 @@ public class UIManager_mainMenu : MonoBehaviour
     public void PlayGame()
     {
         SceneLoader.Instance.LoadSceneWithLoadingScene(lvlSelector.sceneIndexToLoad);
-        ////save scene to load to playerprefs
-        //PlayerPrefsManager.Instance.SetNextSceneToLoad(lvlSelector.sceneIndexToLoad);
-        ////load Loading scene
-        //SceneLoader.Instance.LoadScene(SceneIndex.loadingScene);
     }
 
    
-
-    #region - Level Buttons-
-    //public void SelectLevel1()
-    //{
-    //    lvlSelector.UpdateSceneBasedOnLevelSelected(1);
-    //}
-
-    //public void SelectLevel2()
-    //{
-    //    lvlSelector.UpdateSceneBasedOnLevelSelected(2);
-    //}
-
-    //public void SelectLevel3()
-    //{
-    //    lvlSelector.UpdateSceneBasedOnLevelSelected(3);
-    //}
-    #endregion
 
 
     private void AddButtonEvents()
     {
         playGame_btn.onClick.AddListener(PlayGame);
+
         settings_btn.onClick.AddListener(OpenSettingsPanel);
         closeSettings_btn.onClick.AddListener(CloseSettingsPanel);
+
         help_btn.onClick.AddListener(OpenHelpPanel);
         closeHelp_btn.onClick.AddListener(CloseHelpPanel);
+
+        credits_btn.onClick.AddListener(OpenCreditsPanel);
+        closeCredits_btn.onClick.AddListener(CloseCreditsPanel);
     }
 
     private void OpenSettingsPanel()
@@ -105,5 +95,22 @@ public class UIManager_mainMenu : MonoBehaviour
     {
         SoundController.Instance.PlayButtonClick();
         help_panel.gameObject.SetActive(false);
+    }
+
+    private void OpenCreditsPanel()
+    {
+        SoundController.Instance.PlayButtonClick();
+        credits_panel.gameObject.SetActive(true);
+    }
+
+    private void CloseCreditsPanel()
+    {
+        SoundController.Instance.PlayButtonClick();
+        credits_panel.gameObject.SetActive(false);
+    }
+
+    private void PlayMusic()
+    {
+        SoundController.Instance.PlayMainMenuBGMusic();
     }
 }

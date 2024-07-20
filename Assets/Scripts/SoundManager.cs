@@ -29,7 +29,7 @@ public class SoundManager : MonoBehaviour
                 soundContrl.PlayNeutralAttack();
                 break;
             case PlayerAttackTypes.KILL_ATTACK:
-                soundContrl.PlayKillAttack();
+                //soundContrl.PlayKillAttack();
                 break;
             case PlayerAttackTypes.ENGULF_ATTACK:
                 soundContrl.PlayEngulfAttack();

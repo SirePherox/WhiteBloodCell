@@ -198,6 +198,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Engulf
       objectReference: {fileID: 0}
+    - target: {fileID: 2705617774780169331, guid: 10b20ea68c70e49cba4a7130fc15ee20,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5352113510552345382, guid: 10b20ea68c70e49cba4a7130fc15ee20,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -267,6 +272,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476465990404250674, guid: 10b20ea68c70e49cba4a7130fc15ee20,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

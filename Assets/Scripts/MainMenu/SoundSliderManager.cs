@@ -61,6 +61,9 @@ public class SoundSliderManager : MonoBehaviour
         if (soundType == SoundSliderType.Music)
         {
             PlayerPrefsManager.Instance.SetSoundSliderVolume(PlayerPrefsNames.MUSIC_SLIDER, newValue);
+
+            //update immediately
+            SoundController.Instance.SetMusicVolume(newValue);
         }
         else
         {

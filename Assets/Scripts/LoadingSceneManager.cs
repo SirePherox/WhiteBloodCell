@@ -15,6 +15,7 @@ public class LoadingSceneManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        PlayLoadingMusic();
        UpdateLoadingImage();
        StartCoroutine( LoadSceneWithSliderUpdate());
     }
@@ -54,5 +55,10 @@ public class LoadingSceneManager : MonoBehaviour
     {
         int randNumb = Random.Range(0, loadingImages.Count - 1);
         targetImage.sprite = loadingImages[randNumb];
+    }
+
+    private void PlayLoadingMusic()
+    {
+        SoundController.Instance.PlayLoadingSceneMusic();
     }
 }

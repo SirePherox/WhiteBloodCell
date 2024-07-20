@@ -14,6 +14,7 @@ public class SoundController : SingletonCreator<SoundController>
 
     [Space]
     [SerializeField] private AudioClip mainMenu;
+    [SerializeField] private AudioClip loadingScene;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,6 +33,21 @@ public class SoundController : SingletonCreator<SoundController>
     public void PlayMainMenuBGMusic()
     {
         PlayMusic(mainMenu);
+    }
+
+    public void StopMusic()
+    {
+        musicSource.Stop();
+    }
+
+    public void SetMusicVolume(float value)
+    {
+        musicSource.volume = value;
+    }
+
+    public void PlayLoadingSceneMusic()
+    {
+        PlayMusic(loadingScene);
     }
     #endregion
 

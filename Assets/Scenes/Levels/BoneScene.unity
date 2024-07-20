@@ -2329,14 +2329,12 @@ MonoBehaviour:
   - {fileID: 783815922}
   - {fileID: 394364718}
   - {fileID: 105046109}
-  canSpawnThreats: 0
   canSpawnVirus: 0
   canSpawnBacteria: 1
-  canSpawnToxins: 0
-  bacteriaNextSpawnTime: 0
-  virusNextSpawnTime: 0
+  canSpawnToxin: 0
   bacteriaSpawnRate: 0.25
   virusSpawnRate: 0.125
+  toxinSpawnRate: 0
 --- !u!4 &774579283
 Transform:
   m_ObjectHideFlags: 0
@@ -7025,6 +7023,21 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.01253183
       objectReference: {fileID: 0}
+    - target: {fileID: 4733600299415955815, guid: f8748466072f5403291c70996ad33bd9,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.158
+      objectReference: {fileID: 0}
+    - target: {fileID: 4733600299415955815, guid: f8748466072f5403291c70996ad33bd9,
+        type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: b6270a7ebb88f47ca813ab65fb0e2f75, type: 3}
+    - target: {fileID: 4733600299415955815, guid: f8748466072f5403291c70996ad33bd9,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b6270a7ebb88f47ca813ab65fb0e2f75, type: 3}
     - target: {fileID: 4968250555676397350, guid: f8748466072f5403291c70996ad33bd9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7335,6 +7348,11 @@ PrefabInstance:
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 636826890}
+    - target: {fileID: 6155650946534387735, guid: f8748466072f5403291c70996ad33bd9,
+        type: 3}
+      propertyPath: ClipLength
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 6155650946534387735, guid: f8748466072f5403291c70996ad33bd9,
         type: 3}
       propertyPath: spawnItemsParent

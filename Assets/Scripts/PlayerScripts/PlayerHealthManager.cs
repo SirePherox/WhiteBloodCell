@@ -51,6 +51,9 @@ public class PlayerHealthManager : MonoBehaviour
                 case ThreatTypes.VIRUS:
                     _currentPlayerHealth -= damageAmount;
                     break;
+                case ThreatTypes.TOXIN:
+                    _currentPlayerHealth -= damageAmount;
+                    break;
                 default:
                     Debug.LogWarning("COULDNT HANDLE THE THREATTYPE, CANT DEAL DAMAGE TO PLAYER HEALTH");
                     break;

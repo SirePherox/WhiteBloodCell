@@ -15,7 +15,7 @@ public class LevelStats : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        SoundController.Instance.StopMusic();
     }
 
     // Update is called once per frame

@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     private float killAttackBulletFireRate = 2.0f;
     private float nextFireTime = 0.0f;
 
+    [Header("Audiio Variables")]
+    [SerializeField] private float ClipLength = 1f;
+    [SerializeField] private GameObject AudioClip;
+
     [Serializable]
     public enum AttackMechanism
     {
@@ -32,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     //EVENTS
     public UnityEvent<string> OnChangeAttackMechanism;
-   [SerializeField] private AttackMechanism currentAttackMechanism;// = AttackMechanism.Neutral;
+    [SerializeField] private AttackMechanism currentAttackMechanism;// = AttackMechanism.Neutral;
 
 
     private void Awake()
@@ -52,6 +56,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        AudioClip.SetActive(false);
+
         GameStateManager.Instance.OnGameStateChanged += GameStateChanged;
         currentAttackMechanism = AttackMechanism.Neutral;
 
@@ -132,10 +138,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private IEnumerator PlaySound()
+    {
+
+        AudioClip.SetActive(true);
+        yield return new WaitForSeconds(ClipLength);
+        AudioClip.SetActive(false);
+
+    }
+
     private void SpawnKillAttackBullets()
     {
         BulletController newBullet = SpawnManager.Instance.GetKillAttackBullet();
-        newBullet.transform.SetParent(spawnItemsParent,false);
+        newBullet.transform.SetParent(spawnItemsParent, false);
         newBullet.transform.position = bulletSpawnPos.position;
     }
     #endregion
