@@ -11,7 +11,7 @@ public class WaveController : MonoBehaviour
 
 
     [Header("Wave Variables")]
-    [SerializeField] private int numberOfWavesForThisLevel;
+    public int numberOfWavesForThisLevel;
     private int currentWaveNumb;
     [SerializeField] private float timeForAWave;
     private float waveDelayInterval = 9.0f;

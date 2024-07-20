@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-
+using TMPro;
 public class UIManager : MonoBehaviour
 {
     [Header("Script References")]
@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image waveDelayUi_img;
     [SerializeField] private Image waveTimer_img;
     [SerializeField] private Button pause_btn;
-   
+    [SerializeField] private TextMeshProUGUI waveCount_txt;
     
 
     [Header("Pause Variables")]
@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         WaveController.Instance.OnWaveStart.AddListener(HideDelayUI);
+        WaveController.Instance.OnWaveStart.AddListener(UpdateWaveCount);
         WaveController.Instance.OnWaveEnd.AddListener(ShowWaveDelayUI);
         AddButtonOnclickEvents();
         ResumeGame(); //to autohide the pause panel if in case its on
@@ -146,5 +147,10 @@ public class UIManager : MonoBehaviour
         int currentClearedLvl = PlayerPrefsManager.Instance.GetLevelCompletedNumber();
         int nxtLvlSceneIndex = SceneLoader.Instance.GetNextLevelSceneIndex(currentClearedLvl);
         SceneLoader.Instance.LoadSceneWithLoadingScene(nxtLvlSceneIndex) ;
+    }
+
+    private void UpdateWaveCount(int currentWave)
+    {
+        waveCount_txt.text = "Wave: " + currentWave + " - " + WaveController.Instance.numberOfWavesForThisLevel;
     }
 }
