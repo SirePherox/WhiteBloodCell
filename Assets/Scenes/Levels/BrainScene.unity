@@ -1747,6 +1747,7 @@ MonoBehaviour:
   pausePanel: {fileID: 25737611}
   resume_btn: {fileID: 1228711039}
   mainMenu_btn: {fileID: 999560496}
+  restartLevel_btn: {fileID: 1640117437}
   levelFailed_panel: {fileID: 105955587}
   mainMenu_lvlFailed: {fileID: 1182427449}
   tryAgain_lvlFailed: {fileID: 271937550}
@@ -5318,7 +5319,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1640117438}
   m_OnClick:
     m_PersistentCalls:

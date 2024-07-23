@@ -24,6 +24,7 @@ public class Bacteria : BaseThreatController
 
     public override void TakeDamage(string playerAttackType, float damageAmount)
     {
+        SoundController.Instance.PlayThreatHurt();
         switch (playerAttackType)
         {
             case PlayerAttackTypes.KILL_ATTACK:

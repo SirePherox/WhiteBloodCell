@@ -11,6 +11,8 @@ public class SoundController : SingletonCreator<SoundController>
     [SerializeField] private AudioClip killAttack;
     [SerializeField] private AudioClip engulfAttack;
     [SerializeField] private AudioClip weakenAttack;
+    [SerializeField] private AudioClip threatHit;
+    [SerializeField] private AudioClip playerHurt;
 
     [Space]
     [SerializeField] private AudioClip mainMenu;
@@ -52,6 +54,14 @@ public class SoundController : SingletonCreator<SoundController>
     #endregion
 
     #region -Attack Sounds-
+    public void PlayPlayerHurt()
+    {
+        PlaySFXEffects(playerHurt, false);
+    }
+    public void PlayThreatHurt()
+    {
+        PlaySFXEffects(threatHit, false);
+    }
     public void PlayKillAttack()
     {
         PlaySFXEffects(killAttack, true);

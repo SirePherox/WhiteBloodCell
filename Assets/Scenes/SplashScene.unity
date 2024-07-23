@@ -927,6 +927,8 @@ MonoBehaviour:
   killAttack: {fileID: 8300000, guid: b6270a7ebb88f47ca813ab65fb0e2f75, type: 3}
   engulfAttack: {fileID: 8300000, guid: 382f3f0abeb0948c5b184e89e1e1abcc, type: 3}
   weakenAttack: {fileID: 8300000, guid: 382f3f0abeb0948c5b184e89e1e1abcc, type: 3}
+  threatHit: {fileID: 8300000, guid: 452d5a8cd89614612909c80e2e065568, type: 3}
+  playerHurt: {fileID: 8300000, guid: 0aa8e96552ce0438dad7e81aef23a290, type: 3}
   mainMenu: {fileID: 8300000, guid: 6aad478dbfc1c444da4aa516cba3d98f, type: 3}
   loadingScene: {fileID: 8300000, guid: 50a7a1bc67b3347d0a29bdcc2ced1cdd, type: 3}
 --- !u!4 &889123558

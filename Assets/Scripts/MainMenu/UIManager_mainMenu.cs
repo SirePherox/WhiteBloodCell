@@ -9,6 +9,7 @@ public class UIManager_mainMenu : MonoBehaviour
 
     [Header("UI References")]
     [SerializeField] private Button playGame_btn;
+    [SerializeField] private Button closeGame_btn;
 
     [Space]
     [Header("Settings Variables")]
@@ -26,11 +27,14 @@ public class UIManager_mainMenu : MonoBehaviour
     [SerializeField] private Transform credits_panel;
     [SerializeField] private Button closeCredits_btn;
 
+
+    private string portfolioURL = "https://harlandpherox.itch.io";
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         PlayMusic();
-
+        closeGame_btn.gameObject.SetActive(false);
         if (lvlSelector == null)
         {
             Debug.LogError("COULDNT CACHE LEVEL SELECTOR , ENSURE ITS ATTACHED PROPERLY REFERENCED");
@@ -42,7 +46,14 @@ public class UIManager_mainMenu : MonoBehaviour
         CloseHelpPanel();
 #endif
 
-        
+#if UNITY_ANDROID
+        closeGame_btn.gameObject.SetActive(true);
+        closeGame_btn.onClick.AddListener(CloseGame);
+#elif UNITY_WEBGL
+        closeGame_btn.gameObject.SetActive(true);
+        closeGame_btn.onClick.AddListener(OpenHomePage);
+#endif
+
     }
 
     // Update is called once per frame
@@ -112,5 +123,15 @@ public class UIManager_mainMenu : MonoBehaviour
     private void PlayMusic()
     {
         SoundController.Instance.PlayMainMenuBGMusic();
+    }
+
+    private void CloseGame()
+    {
+        Application.Quit();
+    }
+    
+    private void OpenHomePage()
+    {
+        Application.OpenURL(portfolioURL);
     }
 }

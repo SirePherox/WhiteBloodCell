@@ -41,7 +41,7 @@ public class PlayerHealthManager : MonoBehaviour
         {
             //show vfx
 
-
+            SoundController.Instance.PlayPlayerHurt();
             //TODO Deal specific damage based on threat types
             switch (threatType)
             {

@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform pausePanel;
     [SerializeField] private Button resume_btn;
     [SerializeField] private Button mainMenu_btn;
+    [SerializeField] private Button restartLevel_btn;
 
     [Header("Level Failed Variables")]
     [SerializeField] private GameObject levelFailed_panel;
@@ -98,7 +99,7 @@ public class UIManager : MonoBehaviour
         //pause panel
         resume_btn.onClick.AddListener(ResumeGame);
         mainMenu_btn.onClick.AddListener(LoadMainMenuScene);
-
+        restartLevel_btn.onClick.AddListener(RetryLevel);
         //level failed panel
         mainMenu_lvlCompleted.onClick.AddListener(LoadMainMenuScene);
         tryAgain_lvlFailed.onClick.AddListener(RetryLevel);
